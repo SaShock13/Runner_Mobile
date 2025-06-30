@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "110467622738",
+    "project_id": "kicknrun-828c1",
+    "storage_bucket": "kicknrun-828c1.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:110467622738:android:8b59d0f770648c711bfc8b",
+        "android_client_info": {
+          "package_name": "com.BizonGames.KickNRun"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAFeRqfTifUgdgUVFt8j3F-mLX6hD5qvG8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

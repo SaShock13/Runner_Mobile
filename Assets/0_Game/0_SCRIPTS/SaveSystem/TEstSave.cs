@@ -17,6 +17,7 @@ public class TEstSave : MonoBehaviour
         Debug.Log($"Загружен рекорд: {_progress.HighScore} \n  ");
         Debug.Log($"Загружен Coins: {_progress.Coins} \n  ");
         Debug.Log($"Загружен EquippedSkin: {_progress.EquippedSkin} \n  ");
+        Debug.Log($"Загружен IsfirstTime: {_progress.IsFirstTime} \n  ");
         //_dataManager.DeleteAllData();
         //_progress.HighScore = 0;
         //_progress.Coins = 0;

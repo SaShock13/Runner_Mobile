@@ -10,6 +10,7 @@ public class PlayerProgress
     public int HighScore;
     public int Coins;
     public int Diamonds;
+    public bool IsFirstTime;
     public List<string> UnlockedSkins = new List<string>();
     public string EquippedSkin;
     public DateTime LastSaveTime;
@@ -24,6 +25,7 @@ public class PlayerProgress
         UnlockedSkins.Add("BoySkin");
         EquippedSkin = "BoySkin";
         LastSaveTime = DateTime.UtcNow;
+        IsFirstTime = true;
         Name = "";
     }
 
@@ -35,6 +37,7 @@ public class PlayerProgress
         other.EquippedSkin = EquippedSkin;
         other.LastSaveTime = LastSaveTime;
         other.Name = Name;
+        other.IsFirstTime = IsFirstTime;
         foreach (var item in UnlockedSkins)
         {
             other.UnlockedSkins.Add(item);

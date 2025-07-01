@@ -1,4 +1,5 @@
 ﻿using System;
+using ModestTree;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Zenject;
@@ -14,6 +15,7 @@ public class Game : MonoBehaviour
     private float startTime;
     private LevelGenerator _levelGenerator;
     private Tutorial _tutorial;
+    private bool _isFirtTime = true;
 
     [Inject]
 	public void Construct(EventBus eventBus, Player player, PlayerProgress progress, PlayerStats playerStats, IDataService dataService
@@ -35,13 +37,28 @@ public class Game : MonoBehaviour
         _eventBus.OnPlayerDeathEvent += PlayerDeath;
         _eventBus.OnGameRestartRequestEvent += RestartGame;
         _eventBus.OnGameStartRequestEvent += StartGame;
+        _eventBus.OnPlayerProgressResetRequestEvent += RequestDataReset;
         Time.timeScale = 0;
+    }
+
+    private void RequestDataReset()
+    {
+        _isFirtTime = true;
+        _dataService.DeleteAllData();
+        _eventBus.PublishOnPlayerProgressResetEvent();
     }
 
     private void StartGame()
     {
+        if (_playerProgress.IsFirstTime)
+        {
+            _tutorial.SetInput(_player._input);
+            _tutorial.StartTutorial();
+            _playerProgress.IsFirstTime = false;
+            _dataService.SavePlayerProgress(_playerProgress);
+        }
+        else _eventBus.PublishOnTutorialFinishedEvent();      
         _eventBus.PublishOnGameStartEvent();
-        _tutorial.SetInput(_player._input);
         _levelGenerator.StartGeneration();
         Time.timeScale = 1;
         startTime = Time.time;

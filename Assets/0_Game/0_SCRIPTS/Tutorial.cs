@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections;
 using DG.Tweening;
+using TMPro;
 using UnityEngine;
 using Zenject;
 
@@ -13,6 +15,7 @@ public class Tutorial : MonoBehaviour
     [SerializeField] private Ease downEase = Ease.InQuad; // Стиль движения вниз
     [SerializeField] private GameObject panel;
     [SerializeField] private RectTransform _rectTransform;
+    [SerializeField] private TMP_Text tutText;
     private Vector2 _originalPosition;
 
     [Inject] private EventBus _bus;
@@ -23,6 +26,7 @@ public class Tutorial : MonoBehaviour
     private bool isWaitForSwipeDown = false;
     private bool isWaitForSwipeLeft = false;
     private bool isWaitForSwipeRight = false;
+    private bool tutorialIsPlaying = false;
 
     public void SetInput(IInput input)
     {
@@ -35,9 +39,6 @@ public class Tutorial : MonoBehaviour
 
     private void Start()
     {
-        _bus.OnGameStartEvent += StartTutorial;
-        
-        
         //// Получаем компоненты
         //_rectTransform = GetComponent<RectTransform>();
 
@@ -70,21 +71,53 @@ public class Tutorial : MonoBehaviour
         if (isWaitForSwipeUp) StopTutorial();
     }
 
-    private void StartTutorial()
+    public void StartTutorial()
     {
-        panel.SetActive(true);  
-        StartUpAnimation();
+        StartCoroutine(TutorialCoroutine());        
     }
+
+
+    IEnumerator TutorialCoroutine()
+    {
+        StartUpAnimation();
+        while (tutorialIsPlaying)
+        {
+            yield return null;
+        }
+        yield return new WaitForSeconds(2);
+        StartDownAnimation();
+        while (tutorialIsPlaying)
+        {
+            yield return null;
+        }
+        yield return new WaitForSeconds(2);
+        StartLeftAnimation();
+        while (tutorialIsPlaying)
+        {
+            yield return null;
+        }
+        yield return new WaitForSeconds(2);
+        _bus.PublishOnTutorialFinishedEvent();
+        StartRightAnimation();
+        while (tutorialIsPlaying)
+        {
+            yield return null;
+        }
+    }
+
 
     private void StopTutorial()
     {
+        tutorialIsPlaying = false;
         panel.SetActive(false);
-        KillSequence();
-        _bus.PublishOnTutorialFinishedEvent();
+        KillSequence();        
     }
 
     public void StartUpAnimation()
     {
+        tutorialIsPlaying = true;
+        panel.SetActive(true);
+        tutText.text = "Свайп вверх для прыжка"; 
         // Создаем последовательность
         bounceSequence = DOTween.Sequence();
 
@@ -106,6 +139,89 @@ public class Tutorial : MonoBehaviour
         // Опционально: имя для отладки
         bounceSequence.SetId("BounceAnimation");
         isWaitForSwipeUp = true;
+    }
+    public void StartDownAnimation()
+    {
+        tutorialIsPlaying = true;
+        panel.SetActive(true);
+        tutText.text = "Свайп вниз для слайда";
+        // Создаем последовательность
+        bounceSequence = DOTween.Sequence();
+
+        // 1. Движение вверх
+        bounceSequence.Append(
+            _rectTransform.DOAnchorPosY(_originalPosition.y - upDistance, upDuration)
+                .SetEase(upEase)
+        );
+
+        // 2. Быстрое движение вниз (возврат в исходную позицию)
+        bounceSequence.Append(
+            _rectTransform.DOAnchorPosY(_originalPosition.y, downDuration)
+                .SetEase(downEase)
+        );
+
+        // 3. Зацикливаем анимацию
+        bounceSequence.SetLoops(-1, LoopType.Restart);
+
+        // Опционально: имя для отладки
+        bounceSequence.SetId("BounceAnimation");
+        isWaitForSwipeDown = true;
+    }
+    
+    public void StartLeftAnimation()
+    {
+        tutorialIsPlaying = true;
+        panel.SetActive(true);
+        tutText.text = "Свайп влево для предвижения влево";
+        // Создаем последовательность
+        bounceSequence = DOTween.Sequence();
+
+        // 1. Движение вверх
+        bounceSequence.Append(
+            _rectTransform.DOAnchorPosX(_originalPosition.x - upDistance, upDuration)
+                .SetEase(upEase)
+        );
+
+        // 2. Быстрое движение вниз (возврат в исходную позицию)
+        bounceSequence.Append(
+            _rectTransform.DOAnchorPosX(_originalPosition.x, downDuration)
+                .SetEase(downEase)
+        );
+
+        // 3. Зацикливаем анимацию
+        bounceSequence.SetLoops(-1, LoopType.Restart);
+
+        // Опционально: имя для отладки
+        bounceSequence.SetId("BounceAnimation");
+        isWaitForSwipeLeft = true;
+    }
+    
+    public void StartRightAnimation()
+    {
+        tutorialIsPlaying = true;
+        panel.SetActive(true);
+        tutText.text = "Свайп вправо для предвижения вправо";
+        // Создаем последовательность
+        bounceSequence = DOTween.Sequence();
+
+        // 1. Движение вверх
+        bounceSequence.Append(
+            _rectTransform.DOAnchorPosX(_originalPosition.x + upDistance, upDuration)
+                .SetEase(upEase)
+        );
+
+        // 2. Быстрое движение вниз (возврат в исходную позицию)
+        bounceSequence.Append(
+            _rectTransform.DOAnchorPosX(_originalPosition.x, downDuration)
+                .SetEase(downEase)
+        );
+
+        // 3. Зацикливаем анимацию
+        bounceSequence.SetLoops(-1, LoopType.Restart);
+
+        // Опционально: имя для отладки
+        bounceSequence.SetId("BounceAnimation");
+        isWaitForSwipeRight = true;
     }
 
     private void OnDestroy()

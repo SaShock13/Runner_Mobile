@@ -8,6 +8,8 @@ public class EventBus
     public event Action OnProgressLoadedEvent;
     public event Action OnGameOverEvent;
     public event Action OnGameRestartRequestEvent;
+    public event Action OnPlayerProgressResetRequestEvent;
+    public event Action OnPlayerProgressResetEvent;
     public event Action OnGameStartRequestEvent;
     public event Action OnTutorialFinishedEvent;
     public event Action OnGameStartEvent;
@@ -35,6 +37,14 @@ public class EventBus
     public void PublishOnGameRestartRequestEvent()
     {
         OnGameRestartRequestEvent?.Invoke();
+    }
+     public void PublishOnPlayerProgressResetRequestEvent()
+    {
+        OnPlayerProgressResetRequestEvent?.Invoke();
+    }
+     public void PublishOnPlayerProgressResetEvent()
+    {
+        OnPlayerProgressResetEvent?.Invoke();
     }
     
     public void PublishOnGameStartRequestEvent()

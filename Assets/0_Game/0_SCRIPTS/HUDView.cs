@@ -90,6 +90,7 @@ public class HUDView : MonoBehaviour
         if (!_progress.Name.IsEmpty())
         {
             isFirstEnter = false;
+
             playerNameText.text = _progress.Name;
             playerNameTextGO.SetActive(true);
             playerNameInputGO.SetActive(false);
@@ -119,8 +120,11 @@ public class HUDView : MonoBehaviour
 
     public void OnClearProgressBtnClicked()
     {
-        _dataService.DeleteAllData();
+        _eventBus.PublishOnPlayerProgressResetRequestEvent();
+        
     }
+
+
 
     public void OnPlayButtonClicked()
     {

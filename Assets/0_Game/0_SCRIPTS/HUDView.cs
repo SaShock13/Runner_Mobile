@@ -1,4 +1,5 @@
-﻿using ModestTree;
+﻿using Cysharp.Threading.Tasks;
+using ModestTree;
 using R3;
 using System;
 using System.Collections;
@@ -28,6 +29,9 @@ public class HUDView : MonoBehaviour
     [SerializeField] TMP_Text bonusCounterText;
     [SerializeField] TMP_Text coinsCounterText;
     [SerializeField] TMP_Text diamondsCounterText;
+    [SerializeField] TMP_Text speedBoostText;
+    [SerializeField] TMP_Text invincibilityText;
+    [SerializeField] TMP_Text x2Text;
     [SerializeField] TMP_InputField playerNameInput;
     [SerializeField] GameObject playerNameInputGO;
     [SerializeField] TMP_Text playerNameText;
@@ -67,10 +71,15 @@ public class HUDView : MonoBehaviour
         _eventBus.OnCoinsAmountChangedEvent += UpdateCoins;
         _eventBus.OnDiamondAmountChangedEvent += UpdateDiamonds;
         _eventBus.OnProgressLoadedEvent += OnProgressLoaded;
+        _eventBus.OnSpeedBoostCollectedEvent += SpeedBoost;
+        _eventBus.OnInvincibilityCollectedEvent += Invincibility;
+        _eventBus.OnMultiplyerX2CollectedEvent += MultiplyerX2;
         pauseBtn.onClick.AddListener(OnPauseClicked);
         restartBtn.onClick.AddListener(OnRestartClicked);
         pauseButtonText = pauseBtn.GetComponentInChildren<TextMeshProUGUI>();
-
+        x2Text.enabled = false;
+        invincibilityText.enabled = false;
+        speedBoostText.enabled = false;
         if (showWeather)
         {
             weather.enabled = true;
@@ -81,6 +90,28 @@ public class HUDView : MonoBehaviour
             weather.enabled = false;
             weatherVidget.SetActive(false);
         }
+    }
+
+    private async void MultiplyerX2(float duration)
+    {
+        x2Text.enabled = true;
+        await UniTask.Delay(TimeSpan.FromSeconds(duration));
+        x2Text.enabled = false;
+
+    }
+
+    private async void Invincibility(float duration)
+    {
+        invincibilityText.enabled = true;
+        await UniTask.Delay(TimeSpan.FromSeconds(duration));
+        invincibilityText.enabled = false;
+    }
+
+    private async void SpeedBoost(float duration)
+    {
+        speedBoostText.enabled = true;
+        await UniTask.Delay(TimeSpan.FromSeconds(duration));
+        speedBoostText.enabled = false;
     }
 
     private void OnProgressLoaded()

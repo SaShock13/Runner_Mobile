@@ -30,7 +30,10 @@ public class PlayerCollision : MonoBehaviour
         }
         if (((1 << other.gameObject.layer) & _obstacleLayer) != 0)
         {
-            ProcessObstacle(other);
+            if (!_playerStats.IsInvincible)
+            {
+                ProcessObstacle(other); 
+            }
         }
     }
 
@@ -56,12 +59,36 @@ public class PlayerCollision : MonoBehaviour
                 break;
             case BonusType.Diamand:
                 ProcessDiamandBonus();
+                break; 
+            case BonusType.Invincibility:
+                ProcessInvincibility(bonus.duration);
+                break;
+            case BonusType.MultiplyerX2:
+                ProcessMultiplyerX2(bonus.duration);
+                break;
+            case BonusType.SpeedBoost:
+                ProcessSpeedBoost(bonus.duration);
                 break;
             default:
                 break;
         }
 
         _soundManager.PlaySFX(Sounds.bonus);
+    }
+
+    private void ProcessSpeedBoost(float duration)
+    {
+        _eventBus.PublishOnSpeedBoostCollectedEvent(duration);
+    }
+
+    private void ProcessMultiplyerX2(float duration)
+    {
+        _eventBus.PublishOnMultiplyerX2CollectedEvent(duration);
+    }
+
+    private void ProcessInvincibility(float duration)
+    {
+        _eventBus.PublishOnInvincibilityCollectedEvent(duration);
     }
 
     private void ProcessDiamandBonus()

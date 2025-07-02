@@ -17,6 +17,9 @@ public class EventBus
     public event Action OnBonusCollectedEvent;
     public event Action OnCoinCollectedEvent;
     public event Action OnDiamondCollectedEvent;
+    public event Action<float> OnSpeedBoostCollectedEvent;
+    public event Action<float> OnMultiplyerX2CollectedEvent;
+    public event Action<float> OnInvincibilityCollectedEvent;
     public event Action<int> OnBonusAmountChangedEvent;
     public event Action<int> OnCoinsAmountChangedEvent;
     public event Action<int> OnDiamondAmountChangedEvent;
@@ -75,6 +78,18 @@ public class EventBus
     public void PublishOnCoinCollectedEvent()
     {
         OnCoinCollectedEvent?.Invoke();
+    }
+    public void PublishOnSpeedBoostCollectedEvent(float duration)
+    {
+        OnSpeedBoostCollectedEvent?.Invoke(duration);
+    }
+    public void PublishOnMultiplyerX2CollectedEvent(float duration)
+    {
+        OnMultiplyerX2CollectedEvent?.Invoke(duration);
+    }
+    public void PublishOnInvincibilityCollectedEvent(float duration)
+    {
+        OnInvincibilityCollectedEvent?.Invoke(duration);
     }
     public void PublishOnDiamondCollectedEventt()
     {

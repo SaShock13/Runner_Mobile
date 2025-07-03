@@ -18,9 +18,11 @@ public class HUDView : MonoBehaviour
     private PlayerHealth health;
 
     [SerializeField] private Button pauseBtn;
+    [SerializeField] private Button menuBtn;
     [SerializeField] private Button restartBtn;
     [SerializeField] private GameObject deathPanel;
     [SerializeField] private GameObject startMenuPanel;
+    [SerializeField] private GameObject gameMenuPanel;
     [SerializeField] TMP_Text livesText;
     [SerializeField] TMP_Text nameText;
     [SerializeField] TMP_Text speedText;
@@ -62,6 +64,7 @@ public class HUDView : MonoBehaviour
     private void Awake()
     {
         _eventBus.OnPauseEvent += PauseGame;
+        _eventBus.OnMenuRequestEvent += ShowMenu;
         _eventBus.OnResumeEvent += ResumeGame;
         _eventBus.OnPlayerDamagedEvent += PlayerDamaged;
         _eventBus.OnGameOverEvent += GameOver;
@@ -74,7 +77,9 @@ public class HUDView : MonoBehaviour
         _eventBus.OnSpeedBoostCollectedEvent += SpeedBoost;
         _eventBus.OnInvincibilityCollectedEvent += Invincibility;
         _eventBus.OnMultiplyerX2CollectedEvent += MultiplyerX2;
+        gameMenuPanel.SetActive(false);
         pauseBtn.onClick.AddListener(OnPauseClicked);
+        menuBtn.onClick.AddListener(OnMenuClicked);
         restartBtn.onClick.AddListener(OnRestartClicked);
         pauseButtonText = pauseBtn.GetComponentInChildren<TextMeshProUGUI>();
         x2Text.enabled = false;
@@ -90,6 +95,12 @@ public class HUDView : MonoBehaviour
             weather.enabled = false;
             weatherVidget.SetActive(false);
         }
+    }
+
+    private void ShowMenu()
+    {
+
+        gameMenuPanel.SetActive(true);
     }
 
     private async void MultiplyerX2(float duration)
@@ -177,6 +188,12 @@ public class HUDView : MonoBehaviour
         _eventBus.PublishOnGameStartRequestEvent();
     }
 
+    public void OnCloseMenuClck()
+    {
+        _eventBus.PublishOnRequestPauseEvent();
+        gameMenuPanel.SetActive(false);
+    }
+
     private void StartGame()
     {
         startMenuPanel.SetActive(false);
@@ -206,6 +223,11 @@ public class HUDView : MonoBehaviour
     private void OnPauseClicked()
     {
         _eventBus.PublishOnRequestPauseEvent();
+    }
+    
+    private void OnMenuClicked()
+    {
+        _eventBus.PublishOnMenuRequestEvent();
     }
 
     private void ResumeGame( )

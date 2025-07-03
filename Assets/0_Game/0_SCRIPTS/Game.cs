@@ -34,11 +34,18 @@ public class Game : MonoBehaviour
     {
 
         _eventBus.OnRequestPauseEvent += OnRequestPause;
+        _eventBus.OnMenuRequestEvent += OnRequestMenu;
         _eventBus.OnPlayerDeathEvent += PlayerDeath;
         _eventBus.OnGameRestartRequestEvent += RestartGame;
         _eventBus.OnGameStartRequestEvent += StartGame;
         _eventBus.OnPlayerProgressResetRequestEvent += RequestDataReset;
         Time.timeScale = 0;
+    }
+
+    private void OnRequestMenu()
+    {
+        OnRequestPause();
+        _eventBus.PublishOnMenuEvent();
     }
 
     private void RequestDataReset()

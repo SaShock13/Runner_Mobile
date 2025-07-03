@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class EventBus 
 {
+    public event Action OnMenuRequestEvent;
+    public event Action OnMenuEvent;
     public event Action<int,int> OnPlayerDamagedEvent;
     public event Action OnPlayerDeathEvent;
     public event Action OnProgressLoadedEvent;
@@ -115,6 +117,15 @@ public class EventBus
     {
         OnRequestPauseEvent?.Invoke();
     }
+    public void PublishOnMenuRequestEvent()
+    {
+        OnMenuRequestEvent?.Invoke();
+    }
+    public void PublishOnMenuEvent()
+    {
+        OnMenuEvent?.Invoke();
+    }
+
     public void PublishOProgressLoadedEvent()
     {
         OnProgressLoadedEvent?.Invoke();

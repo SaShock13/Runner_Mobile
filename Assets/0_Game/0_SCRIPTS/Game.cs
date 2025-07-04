@@ -57,6 +57,10 @@ public class Game : MonoBehaviour
 
     private void StartGame()
     {
+        _player.ResetPlayer();
+        _levelGenerator.ResetLevel();
+        _eventBus.PublishOnGameResetEvent();
+
         if (_playerProgress.IsFirstTime)
         {
             _tutorial.SetInput(_player._input);
@@ -67,8 +71,11 @@ public class Game : MonoBehaviour
         else _eventBus.PublishOnTutorialFinishedEvent();      
         _eventBus.PublishOnGameStartEvent();
         _levelGenerator.StartGeneration();
+        isPaused = false;
         Time.timeScale = 1;
         startTime = Time.time;
+
+        Debug.Log($"StartGame  st5ats  {_playerStats.currenHealth}");
     }
 
     private void OnRequestPause()
@@ -123,6 +130,7 @@ public class Game : MonoBehaviour
 
     private void RestartGame()
     {
+        isPaused = true;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }

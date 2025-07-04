@@ -71,6 +71,26 @@ public class PlayerStats
         }
     }
 
+    public void ResetStats()
+    {
+        currenHealth = maxhealth;
+        coins = 0;
+        diamonds = 0;
+        bonuses = 0;
+        IsInvincible = false;
+        IsSpeedBoosted = false;
+        IsMultilier = false;
+        currentRunSpeed = baseRunSpeed;
+        strafeTime = 0.5f;
+        speedMultiplyer = 1.5f;
+        bonusMultiplyer = 1f;
+        _eventBus.PublishOnPlayerDamaged(maxhealth, currenHealth);
+        _eventBus.PublishOnSpeedChangedEvent(currentRunSpeed);
+        _eventBus.PublishOnBonusAmountChangedEvent(bonuses);
+        _eventBus.PublishOnCoinsAmountChangedEvent(coins);
+        _eventBus.PublishOnDiamondAmountChangedEvent(diamonds);
+    }
+
     private async void MultiplyerX2Collected(float duration)
     {
         Debug.Log($"MultiplyerX2 {this}");

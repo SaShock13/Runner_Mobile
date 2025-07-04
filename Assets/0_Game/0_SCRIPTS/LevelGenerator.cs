@@ -48,6 +48,8 @@ public class LevelGenerator : MonoBehaviour
 
     public void StartGeneration()
     {
+
+        Debug.Log($"StartGeneration {this}");
         for (int i = 0; i < 3; i++)
         {
             GenerateFloor(_nextFloorZPos);
@@ -63,6 +65,12 @@ public class LevelGenerator : MonoBehaviour
         
 
         isStarted = true;
+    }
+
+    public void ResetLevel()
+    {
+        _nextWallZPos = 0f;
+        _nextFloorZPos = 0f;
     }
 
     public void IncreaseWallsStep()

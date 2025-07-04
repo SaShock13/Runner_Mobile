@@ -18,16 +18,26 @@ public class Player : MonoBehaviour
     private EventBus _eventBus;
     IAsssetProvider _asssetProvider;
     private Tutorial _tutorial;
+    private PlayerStats _stats;
 
     [Inject]
-    public void Construct( EventBus eventBus, PlayerAnimatorManager animatorManager, IAsssetProvider asssetProvider, Tutorial tutorial)
+    public void Construct( EventBus eventBus, PlayerAnimatorManager animatorManager, IAsssetProvider asssetProvider, Tutorial tutorial, PlayerStats stats)
     {
         _eventBus = eventBus;
         _animatorManager = animatorManager;
         _asssetProvider = asssetProvider;
         _tutorial = tutorial;
+        _stats = stats;
     }
 
+    public void ResetPlayer()
+    {
+        var newPOs = transform.position;
+        newPOs.z = -7.93f;
+        transform.position = newPOs;
+        _stats.ResetStats();
+
+    }
 
     private void Awake()
     {        

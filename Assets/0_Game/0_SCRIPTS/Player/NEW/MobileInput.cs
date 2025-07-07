@@ -10,12 +10,9 @@ public class MobileInput: IInput
     public bool isAutoRun = false;
     private float xInput, yInput;
     private Joystick _joystick;
-
-
     [Header("Настройки свайпа")]
     [Tooltip("Минимальная длина в пикселях, чтобы считать это свайпом")]
     private float minSwipeDistance = 50f;
-
     public event Action OnSwipeLeft;
     public event Action OnSwipeRight;
     public event Action OnSwipeUp;
@@ -23,27 +20,17 @@ public class MobileInput: IInput
     public event Action OnSwipe;
     public event Action OnTouchEnd;
     public event Action OnTouchStart;
-
-
     public static event Action<string> OnMessage;
-
-
-
-    
     private InputAction touchAction;
     private InputAction TouchPosAction;
     private Vector2 startPos;
     private bool swipeInProgress;
-
-    private Vector2 CurrentPosition => TouchPosAction.ReadValue<Vector2>();
-   
-
+    private Vector2 CurrentPosition => TouchPosAction.ReadValue<Vector2>(); 
 
     [Inject]
     public void Construct(Joystick joystick)
     {
-        _joystick = joystick;
-        
+        _joystick = joystick;        
     }
 
     public MobileInput()
@@ -88,24 +75,5 @@ public class MobileInput: IInput
         Debug.Log($"End Swipe {this}");
         swipeInProgress = true;
         startPos = CurrentPosition;
-    }
-
-   
-
-    private void RunForward()
-    {
-        xInput = _joystick.Horizontal;
-        if (!isAutoRun)
-        {
-            yInput = Input.GetAxis("Vertical");
-        }
-        else
-        {
-            yInput = 1;
-        }
-        if (xInput != 0 || yInput != 0)
-        {
-            movement.MoveForward(new Vector3(0, 0, yInput));
-        }
-    }
+    }   
 }

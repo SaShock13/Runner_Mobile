@@ -1,5 +1,3 @@
-using UnityEngine;
-
 public interface IDataStorage 
 {
     void Save(string key, string data);

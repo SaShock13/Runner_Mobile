@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.AddressableAssets;
 using Zenject;
 
@@ -9,33 +8,33 @@ public class SkinChanger : MonoBehaviour
     private GameObject boyPrefab;
     private Player _player;
     private IAsssetProvider _asssetProvider;
-    [Inject] private PlayerProgress _progress;
-    [Inject] private EventBus _eventBus;
-
-
+    private PlayerProgress _progress;
+    private EventBus _eventBus;
 
     [Inject]
-    public void Construct(IAsssetProvider asssetProvider)
+    public void Construct(IAsssetProvider asssetProvider, PlayerProgress progress, EventBus eventBus)
     {
         _asssetProvider = asssetProvider;
+        _progress = progress;
+        _eventBus = eventBus;
     }
-
     private void OnEnable()
     {
         _eventBus.OnProgressLoadedEvent += ProgressLoaded;
     }
-
+    private void OnDisable()
+    {
+        _eventBus.OnProgressLoadedEvent -= ProgressLoaded;        
+    }
     private void ProgressLoaded()
     {
         LoadSkin();
     }
-
     private async void LoadSkin()
     {
         var currentPrefab = await _asssetProvider.LoadSkin(_progress.EquippedSkin);
         _player.SetSkinPrefab(currentPrefab);
     }
-
     private void Awake()
     {
         _player = GetComponent<Player>();       
@@ -45,10 +44,7 @@ public class SkinChanger : MonoBehaviour
     {
         girlPrefab = await _asssetProvider.LoadSkin("GirlSkin");
         boyPrefab = await _asssetProvider.LoadSkin("BoySkin");
-    }
-
-    
-
+    }  
     public void SetGirlSkin()
     {
         _player.SetSkinPrefab(girlPrefab);
@@ -57,8 +53,6 @@ public class SkinChanger : MonoBehaviour
     {
         _player.SetSkinPrefab(boyPrefab);
     }
-
-
     void Update()
     {
 
@@ -72,7 +66,5 @@ public class SkinChanger : MonoBehaviour
         {
             Debug.Log($"Выгрузка {Addressables.ReleaseInstance(boyPrefab)}");
         }
-
-
     }
 }

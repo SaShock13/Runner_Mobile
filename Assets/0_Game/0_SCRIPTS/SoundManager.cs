@@ -11,7 +11,6 @@ public enum Sounds
     slide
 }
 
-
 // todo сделать пул сорсов и вообще доработать 
 public class SoundManager : MonoBehaviour
 {
@@ -43,7 +42,6 @@ public class SoundManager : MonoBehaviour
         PlayMusic(Sounds.backMusic);
     }
 
-
     private void Awake()
     {
         _musicSource = gameObject.AddComponent<AudioSource>();
@@ -61,12 +59,8 @@ public class SoundManager : MonoBehaviour
 
     public void PlayMusic(Sounds sound)
     {
-
-        Debug.Log($"try PlayMusic  {this}");
         if (_soundLibrary.TryGetValue(sound, out AudioClip clip))
         {
-
-            Debug.Log($"clip {clip.name}");
             _musicSource.clip = clip;
             _musicSource.Play();
         }

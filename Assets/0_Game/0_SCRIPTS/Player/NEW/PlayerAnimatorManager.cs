@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class PlayerAnimatorManager 
 {
-
     private Animator _animator;
     private EventBus _eventBus;
 
@@ -12,9 +11,8 @@ public class PlayerAnimatorManager
         _eventBus = eventBus;
         _eventBus.OnPlayerDamagedEvent += Damaged;
         _eventBus.OnPlayerDeathEvent += Death;
-
-        Debug.Log($"Init animator manager {animator != null}");
     }
+
 
     private void Death()
     {

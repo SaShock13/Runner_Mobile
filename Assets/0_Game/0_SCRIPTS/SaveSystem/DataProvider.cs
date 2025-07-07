@@ -1,22 +1,21 @@
-﻿using System.Threading.Tasks;
-using System;
+﻿using System;
 using UnityEngine;
 using Zenject;
 
 public class DataProvider : IDataService
 {
-
     private const string PROGRESS_KEY = "PlayerProgress";
     private PlayerProgress _cachedProgress;
+    private IDataStorage _storage;
 
-    [Inject] private IDataStorage _storage;
-    [Inject] private EventBus _eventBus;
-
+    [Inject]
+    public DataProvider(IDataStorage storage)
+    {
+        _storage = storage;
+    }
     public PlayerProgress LoadPlayerProgress()
     {
-        // Используем кеш, если данные уже загружены
         if (_cachedProgress != null) return _cachedProgress;
-
         if (_storage.HasKey(PROGRESS_KEY))
         {
             try
@@ -31,28 +30,18 @@ public class DataProvider : IDataService
                 Debug.LogError($"Failed to load progress: {ex.Message}");
             }
         }
-
-        // Создаем новый прогресс, если сохранений нет
         _cachedProgress = new PlayerProgress();
-        //_eventBus.Publish(new NewProgressCreatedEvent(_cachedProgress));
         return _cachedProgress;
     }
-
-
-
     public void SavePlayerProgress(PlayerProgress progress)
     {
         try
         {
             _cachedProgress = progress;
             _cachedProgress.LastSaveTime = DateTime.UtcNow;
-
             string json = JsonUtility.ToJson(progress);
             _storage.Save(PROGRESS_KEY, json);
-
-
             Debug.Log($"SavePlayerProgress sucseed {this}");
-            //_eventBus.Publish(new ProgressSavedEvent(progress));
         }
         catch (Exception ex)
         {
@@ -67,5 +56,4 @@ public class DataProvider : IDataService
         _storage.Delete(PROGRESS_KEY);
         _cachedProgress = null;
     }
-
 }

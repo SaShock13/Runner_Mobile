@@ -11,25 +11,6 @@ public class TEstSave : MonoBehaviour
     {
         var progress = _dataManager.LoadPlayerProgress(); 
         progress.CopyTo(_progress);
-        //_progress .HighScore = 0;
         _eventBus.PublishOProgressLoadedEvent();
-        Debug.Log($"Загружен Name: {_progress.Name} \n  ");
-        Debug.Log($"Загружен рекорд: {_progress.HighScore} \n  ");
-        Debug.Log($"Загружен Coins: {_progress.Coins} \n  ");
-        Debug.Log($"Загружен EquippedSkin: {_progress.EquippedSkin} \n  ");
-        Debug.Log($"Загружен IsfirstTime: {_progress.IsFirstTime} \n  ");
-        //_dataManager.DeleteAllData();
-        //_progress.HighScore = 0;
-        //_progress.Coins = 0;
-        //_progress.Diamonds = 0;
-        //_progress.EquippedSkin = "BoySkin";
-        //Debug.Log($"Загружен рекорд: {_progress.HighScore} \n  ");
-        //Debug.Log($"Загружен Coins: {_progress.Coins} \n  ");
-        //Debug.Log($"Изменен рекорд: {_progress.HighScore}");
-        //_dataManager.SavePlayerProgress(_progress);
-
     }
-
-    
-
 }

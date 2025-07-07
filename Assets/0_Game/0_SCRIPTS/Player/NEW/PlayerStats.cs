@@ -1,12 +1,11 @@
 ﻿using System;
 using UnityEngine;
-
 using Cysharp.Threading.Tasks;
 using Zenject;
 using DG.Tweening;
 
 [System.Serializable]
-public class PlayerStats 
+public class PlayerStats  : IDisposable
 {
     public int maxhealth = 10;
     public int currenHealth;
@@ -20,12 +19,10 @@ public class PlayerStats
     public int coins;
     public int bonuses;
     public int diamonds = 0;
-
-    public bool IsAlive => currenHealth > 0;
-
-    private EventBus _eventBus;
     private float speedMultiplyer = 1.5f;
     private float bonusMultiplyer = 1f;
+    private EventBus _eventBus;
+    public bool IsAlive => currenHealth > 0;
 
     [Inject]
     public PlayerStats(EventBus eventBus)
@@ -41,7 +38,7 @@ public class PlayerStats
 
         Debug.Log($"PlayerStats ctor {this}");
     }
-
+    
     private async void SpeedBoostCollected(float duration)
     {
         if (!IsSpeedBoosted)
@@ -66,11 +63,8 @@ public class PlayerStats
                 IsSpeedBoosted = false;
                 _eventBus.PublishOnSpeedChangedEvent(currentRunSpeed);
             });
-
-
         }
     }
-
     public void ResetStats()
     {
         currenHealth = maxhealth;
@@ -96,7 +90,6 @@ public class PlayerStats
         Debug.Log($"MultiplyerX2 {this}");
         IsMultilier = true;
         bonusMultiplyer = 2f;
-
         await UniTask.Delay(TimeSpan.FromSeconds(duration));
         bonusMultiplyer = 1f;
         IsMultilier = false;
@@ -104,7 +97,6 @@ public class PlayerStats
 
     private async void InvincibilityCollected(float duration)
     {
-
         Debug.Log($"IsInvincible {this}");
         IsInvincible = true;
         await UniTask.Delay(TimeSpan.FromSeconds(duration));
@@ -126,11 +118,6 @@ public class PlayerStats
         diamonds += (int)(1 * bonusMultiplyer);
         _eventBus.PublishOnDiamondAmountChangedEvent(diamonds);
     }
-
-
-
-
-
     public void TakeDamage(int damage)
     {
         if (damage > 0 )
@@ -160,5 +147,15 @@ public class PlayerStats
     public void ResetSpeed()
     {
         currentRunSpeed = baseRunSpeed;
+    }
+
+    public void Dispose()
+    {
+        _eventBus.OnBonusCollectedEvent -= CollectBonus;
+        _eventBus.OnCoinCollectedEvent -= CollectCoin;
+        _eventBus.OnDiamondCollectedEvent -= CollectDiamond;
+        _eventBus.OnInvincibilityCollectedEvent -= InvincibilityCollected;
+        _eventBus.OnMultiplyerX2CollectedEvent -= MultiplyerX2Collected;
+        _eventBus.OnSpeedBoostCollectedEvent -= SpeedBoostCollected;
     }
 }

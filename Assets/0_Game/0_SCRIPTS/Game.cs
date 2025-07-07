@@ -1,6 +1,4 @@
-﻿using System;
-using ModestTree;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 using Zenject;
 
@@ -32,7 +30,6 @@ public class Game : MonoBehaviour
 
     private void Awake()
     {
-
         _eventBus.OnRequestPauseEvent += OnRequestPause;
         _eventBus.OnMenuRequestEvent += OnRequestMenu;
         _eventBus.OnPlayerDeathEvent += PlayerDeath;
@@ -42,6 +39,15 @@ public class Game : MonoBehaviour
         Time.timeScale = 0;
     }
 
+    private void OnDisable()
+    {
+        _eventBus.OnRequestPauseEvent -= OnRequestPause;
+        _eventBus.OnMenuRequestEvent -= OnRequestMenu;
+        _eventBus.OnPlayerDeathEvent -= PlayerDeath;
+        _eventBus.OnGameRestartRequestEvent -= RestartGame;
+        _eventBus.OnGameStartRequestEvent -= StartGame;
+        _eventBus.OnPlayerProgressResetRequestEvent -= RequestDataReset;
+    }
     private void OnRequestMenu()
     {
         OnRequestPause();
@@ -60,7 +66,6 @@ public class Game : MonoBehaviour
         _player.ResetPlayer();
         _levelGenerator.ResetLevel();
         _eventBus.PublishOnGameResetEvent();
-
         if (_playerProgress.IsFirstTime)
         {
             _tutorial.SetInput(_player._input);
@@ -74,7 +79,6 @@ public class Game : MonoBehaviour
         isPaused = false;
         Time.timeScale = 1;
         startTime = Time.time;
-
         Debug.Log($"StartGame  st5ats  {_playerStats.currenHealth}");
     }
 

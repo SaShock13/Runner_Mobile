@@ -8,17 +8,14 @@ public class CameraController : MonoBehaviour
     [SerializeField] private CinemachineCamera frontCamera;
     private Player _player;
 
-
     [Inject]
     public void Construct(Player player)
     {
         _player = player;
     }
 
-
     private void Awake()
-    {
-        
+    {        
         backCamera.Follow = _player.transform;
         backCamera.LookAt = _player.transform;
         frontCamera.Follow = _player.transform;
@@ -29,7 +26,6 @@ public class CameraController : MonoBehaviour
 
     private void Update()
     {
-
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             frontCamera.Priority = 0;
@@ -41,6 +37,5 @@ public class CameraController : MonoBehaviour
             frontCamera.Priority = 10;
             backCamera.Priority = 0;
         }
-
     }
 }

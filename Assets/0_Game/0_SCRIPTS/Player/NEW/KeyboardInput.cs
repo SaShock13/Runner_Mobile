@@ -13,15 +13,11 @@ public class KeyboardInput : MonoBehaviour , IInput
         ReadKeyboardInput();
     }
 
-
     /// <summary>
     /// For pc test
     /// </summary>
     private void ReadKeyboardInput()
     {
-        //xInput = Input.GetAxis("Horizontal");
-
-
         if (Input.GetKeyDown(KeyCode.A))
         {
             OnSwipeLeft?.Invoke();
@@ -40,8 +36,5 @@ public class KeyboardInput : MonoBehaviour , IInput
         {
             OnSwipeDown?.Invoke();
         }
-
-
-
     }
 }

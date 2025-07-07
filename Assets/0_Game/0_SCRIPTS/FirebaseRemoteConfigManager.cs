@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections;
-using System.Globalization;
 using System.Threading.Tasks;
 using Firebase;
 using Firebase.Extensions;
@@ -10,11 +9,9 @@ using UnityEngine;
 
 public class FirebaseRemoteConfigManager : MonoBehaviour
 {
-
     [SerializeField] private TMP_Text text ;
     private const string TEST_VARIABLE_KEY = "TestVariable";
     private const string DEFAULT_TEST_VALUE = "default_value";
-
     private bool _isFirebaseInitialized = false;
     private FirebaseRemoteConfig _remoteConfig;
 
@@ -117,7 +114,12 @@ public class FirebaseRemoteConfigManager : MonoBehaviour
         var hex = _remoteConfig.GetValue(variableKey).StringValue;
         ColorUtility.TryParseHtmlString(hex, out Color color);
         return color;
-        //return int.Parse(_remoteConfig.GetValue(variableKey).StringValue, NumberStyles.HexNumber);
+    }
+     public int GetIntValue (string variableKey)
+    {
+
+        var num = _remoteConfig.GetValue(variableKey).LongValue;
+        return (int)num;
     }
 
     private void OnGUI()

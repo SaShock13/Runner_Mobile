@@ -4,17 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
 
-public class Shop : MonoBehaviour
+public class SkinShop : MonoBehaviour
 {
-    [System.Serializable]
-    public class SkinData
-    {
-        public GameObject prefab;
-        public string skinName;
-        public int price;
-        public bool purchased;
-    }
-
     [SerializeField] private List<SkinData> skins = new List<SkinData>();
     [SerializeField] private Transform skinContainer;
     [SerializeField] private TMP_Text infoText;
@@ -23,13 +14,15 @@ public class Shop : MonoBehaviour
     [SerializeField] private Button rightButton;
 
     [Inject] Player _player;
+    [Inject] PlayerWallet _playerWallet;
+    [Inject] FirebaseRemoteConfigManager _remoteConfigManager;
+
 
     private GameObject currentSkinInstance;
     private int currentItemIndex;
 
     void Start()
-    {
-        
+    {        
         InitializeShop();
         ShowSkin(0);
         leftButton.onClick.AddListener(PreviousSkin);
@@ -39,7 +32,6 @@ public class Shop : MonoBehaviour
 
     void InitializeShop()
     {
-        // Создаем экземпляры всех скинов
         foreach (var skin in skins)
         {
             GameObject instance = Instantiate(skin.prefab, skinContainer);
@@ -47,25 +39,37 @@ public class Shop : MonoBehaviour
             instance.SetActive(false);
             instance.layer = LayerMask.NameToLayer("Skins"); // Для рендер-камеры
         }
+        foreach (var skin in skins)
+        {
+            skin.price.costs.Clear();
+        }
+        if (_remoteConfigManager.GetIntValue("skin1_CoinPrice") > 0)
+        { skins[1].price.costs.Add(new CurrencyCost(CurrencyType.Coins, _remoteConfigManager.GetIntValue("skin1_CoinPrice"))); }
+        if (_remoteConfigManager.GetIntValue("skin1_DiamondPrice") > 0)
+        { skins[1].price.costs.Add(new CurrencyCost(CurrencyType.Diamonds, _remoteConfigManager.GetIntValue("skin1_DiamondPrice"))); }
+        if (_remoteConfigManager.GetIntValue("skin2_CoinPrice") > 0)
+        { skins[2].price.costs.Add(new CurrencyCost(CurrencyType.Coins, _remoteConfigManager.GetIntValue("skin2_CoinPrice"))); }
+        if (_remoteConfigManager.GetIntValue("skin2_DiamondPrice") > 0)
+        { skins[2].price.costs.Add(new CurrencyCost(CurrencyType.Diamonds, _remoteConfigManager.GetIntValue("skin2_DiamondPrice"))); }
+
     }
+
+
 
     public void ShowSkin(int index)
     {
         currentItemIndex = index;
         SkinData skin = skins[currentItemIndex];
-
-        // Деактивируем текущую модель
         if (currentSkinInstance != null)
             currentSkinInstance.SetActive(false);
-
-        // Активируем новую модель
         currentSkinInstance = skinContainer.GetChild(index).gameObject;
         currentSkinInstance.SetActive(true);
+        infoText.text = $"{skin.skinName}\nЦена: ";
+        foreach (var cost in skin.price.costs)
+        {
+            infoText.text += $" \n{cost.Name} - {cost.amount}";
+        }
 
-        // Обновляем UI
-        infoText.text = $"{skin.skinName}\nЦена: {skin.price} монет";
-
-        // Настройка кнопки действия
         if (skin.purchased)
         {
             actionButton.GetComponentInChildren<TMP_Text>().text = "Выбрать";
@@ -74,7 +78,6 @@ public class Shop : MonoBehaviour
         else
         {
             actionButton.GetComponentInChildren<TMP_Text>().text = "Купить";
-            //actionButton.interactable = playerData.coins >= skin.price;
         }
     }
 
@@ -88,30 +91,22 @@ public class Shop : MonoBehaviour
 
         if (skin.purchased)
         {
-            // Выбор скина
-            //playerData.selectedSkin = currentIndex;
-            //SavePlayerData(playerData);
-
             Debug.Log($"skin.purchased {skin.purchased}");
             _player.SetSkinPrefab(skin.prefab);
             Debug.Log($"Скин {skin.skinName} выбран!");
         }
         else
         {
-            Debug.Log($"skin.purchased {skin.purchased}");
-            // Покупка скина
-            //if (playerData.coins >= skin.price)
-            //{
-            //    playerData.coins -= skin.price;
-            //    skin.purchased = true;
-            //    actionButton.GetComponentInChildren<Text>().text = "Выбрать";
-            //    SavePlayerData(playerData);
-            //}
+            if(_playerWallet.IsCanBuy(skin.price))
+            {
+                _playerWallet.SpendCurrencies(skin.price);
+                skin.purchased = true;
+                Debug.Log($"skin.purchased {skin.purchased}");
+                //actionButton.GetComponentInChildren<TMP_Text>().text = "Выбрать";
+                //actionButton.interactable = true;
+            }
+            else Debug.Log($"Not enough currencies {this}");
+            
         }
-
     }
-
-    //// Система сохранений (замените на свою реализацию)
-    //private PlayerData LoadPlayerData() => new PlayerData();
-    //private void SavePlayerData(PlayerData data) { }
 }

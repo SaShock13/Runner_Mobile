@@ -60,37 +60,11 @@ public class Player : MonoBehaviour
     /// </summary>
     public void OnSkinLoaded()
     {
-    //    if (_animatorManager!=null)
-    //    {
-    //        _animatorManager.UnSubscribeAll(); 
-    //    }
         _animatorManager.Initialize(_animator,_eventBus);
-    }
-
-    //private void OnTriggerEnter(Collider other)
-    //{
-    //    Debug.Log($"Trigger Enter {this}");
-    //    if (other.transform.TryGetComponent<Obstacle>(out var obstacle))
-    //    {
-    //        health.TakeDamage(3);
-    //    }
-    //    if (other.transform.TryGetComponent<Bonus>(out var bonus))
-    //    {
-    //        bonus.Collect();
-    //        TakeBonus(bonus);
-    //    }
-    //}
-    
-
-    private void TakeBonus(Bonus bonus)
-    {
-        //Debug.Log($"PlayerGet bonus {bonus.name}");
-        //_bonusCollector.CollectBonus();
     }
 
     public void SetSkinPrefab(GameObject skinPrefab)
     {
-
         Debug.Log($"SetSkinPrefab PLayer {this}");
         if (skinPrefab == null) return;
         if(currentSkin != null) Destroy(currentSkin);
@@ -102,8 +76,6 @@ public class Player : MonoBehaviour
 
     public void Death()
     {
-        //var renderer = GetComponentInChildren<Renderer>();
-        //renderer.enabled = false;
         movement.Stop();
     }
 }

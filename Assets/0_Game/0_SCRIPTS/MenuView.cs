@@ -3,12 +3,10 @@ using ModestTree;
 using R3;
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
-using static UnityEngine.Rendering.VolumeComponent;
 
 public class MenuView : MonoBehaviour
 {
@@ -64,7 +62,6 @@ public class MenuView : MonoBehaviour
         _skinChanger = player.GetComponent<SkinChanger>();
     }
 
-
     private void Awake()
     {
         _eventBus.OnPauseEvent += PauseGame;
@@ -105,10 +102,26 @@ public class MenuView : MonoBehaviour
         }
     }
 
+    private void OnDisable()
+    {
+        _eventBus.OnPauseEvent -= PauseGame;
+        _eventBus.OnMenuEvent -= ShowMenu;
+        _eventBus.OnResumeEvent -= ResumeGame;
+        _eventBus.OnPlayerDamagedEvent -= PlayerDamaged;
+        _eventBus.OnGameOverEvent -= GameOver;
+        _eventBus.OnGameStartEvent -= StartGame;
+        _eventBus.OnBonusAmountChangedEvent -= UpdateBonusAmount;
+        _eventBus.OnSpeedChangedEvent -= UpdateSpeed;
+        _eventBus.OnCoinsAmountChangedEvent -= UpdateCoins;
+        _eventBus.OnDiamondAmountChangedEvent -= UpdateDiamonds;
+        _eventBus.OnProgressLoadedEvent -= OnProgressLoaded;
+        _eventBus.OnSpeedBoostCollectedEvent -= SpeedBoost;
+        _eventBus.OnInvincibilityCollectedEvent -= Invincibility;
+        _eventBus.OnMultiplyerX2CollectedEvent -= MultiplyerX2;
+    }
     private void ShowMenu()
     {
         gameMenuPanel.SetActive(true);
-        //ShopPanel.SetActive(true);
     }
 
     private void ShowShop()
@@ -116,14 +129,11 @@ public class MenuView : MonoBehaviour
         shopPanel.SetActive(true);
     }
 
-
-
     private async void MultiplyerX2(float duration)
     {
         x2Text.enabled = true;
         await UniTask.Delay(TimeSpan.FromSeconds(duration));
         x2Text.enabled = false;
-
     }
 
     private async void Invincibility(float duration)
@@ -147,11 +157,9 @@ public class MenuView : MonoBehaviour
         if (!_progress.Name.IsEmpty())
         {
             isFirstEnter = false;
-
             playerNameText.text = _progress.Name;
             playerNameTextGO.SetActive(true);
             playerNameInputGO.SetActive(false);
-
         }
         else
         { 
@@ -177,10 +185,8 @@ public class MenuView : MonoBehaviour
 
     public void OnClearProgressBtnClicked()
     {
-        _eventBus.PublishOnPlayerProgressResetRequestEvent();
-        
+        _eventBus.PublishOnPlayerProgressResetRequestEvent();        
     }
-
 
 
     public void OnPlayButtonClicked()
@@ -191,14 +197,12 @@ public class MenuView : MonoBehaviour
             if (playerNameInput.text.Length > 0)
             {
                 playerName = playerNameInput.text;
-
             }
             else playerName = "Инкогнито";
 
             _progress.Name = playerName;
             _dataService.SavePlayerProgress(_progress); 
         }
-
         Debug.Log($"on start _progress.Name  {_progress.Name}");
         _eventBus.PublishOnGameStartRequestEvent();
     }
@@ -252,7 +256,6 @@ public class MenuView : MonoBehaviour
 
     private void OnShopClicked()
     {
-        //gameMenuPanel.SetActive(false);
         shopPanel.SetActive(true);
     }
     private void OnMainMenuClicked()
@@ -271,7 +274,6 @@ public class MenuView : MonoBehaviour
         pauseButtonText.text = "Возобновить";
     }
 
-
     public void SetBoySkin() // todo перенести  в магазин
     {
         if (_progress.IsEnoughCoins(10))
@@ -281,25 +283,22 @@ public class MenuView : MonoBehaviour
             _skinChanger.SetBoySkin();
         }
     }
-     public void SetGirlSkin()
+
+    public void SetGirlSkin()
     {
         if(_progress.IsEnoughCoins(15))
         {
             _progress.SpendCoin(15);
             _dataService.SavePlayerProgress(_progress);
             _skinChanger.SetGirlSkin();
-        }
-        
+        }        
     }
 
     IEnumerator Start()
     {
         playerMovement = _player.gameObject.GetComponent<PlayerMovement>();
         health = _player.gameObject.GetComponent<PlayerHealth>();
-        //playerNameText.gameObject.SetActive(false);
-        //playerNameInput.gameObject.SetActive(false);
-        startMenuPanel.SetActive(true);
-        
+        startMenuPanel.SetActive(true);        
         while (true)
         {
             fpsText.text = (1 / Time.deltaTime).ToString("F1");
@@ -309,12 +308,10 @@ public class MenuView : MonoBehaviour
 
     private void Update()
     {
-
         if (Input.GetKeyDown(KeyCode.P))
         {
             ShowWeather();
         }
-
     }
 
     public void ShowWeather()

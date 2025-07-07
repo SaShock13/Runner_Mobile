@@ -23,6 +23,7 @@ public class SceneInstaller : MonoInstaller
         Container.Bind<IDataService>().To<DataProvider>().AsSingle();
         Container.Bind<IDataStorage>().To<PlayerPrefsStorage>().AsSingle();
         Container.Bind<PlayerProgress>().AsSingle().NonLazy();
+        Container.Bind<PlayerWallet>().AsSingle().NonLazy();
         Container.Bind<EventBus>().AsSingle();
     }
 }

@@ -3,9 +3,6 @@ using System.Linq;
 using UnityEngine;
 using Zenject;
 
-
-
-
 public class LevelGenerator : MonoBehaviour
 {
     [Header("Настройки генерации")]
@@ -48,22 +45,14 @@ public class LevelGenerator : MonoBehaviour
 
     public void StartGeneration()
     {
-
         Debug.Log($"StartGeneration {this}");
         for (int i = 0; i < 3; i++)
         {
             GenerateFloor(_nextFloorZPos);
             _nextFloorZPos += floorStep;
         }
-
-
         Debug.Log($"mainColor {_remoteConfig.GetColorValue("MainColor")}");
         mainColor = _remoteConfig.GetColorValue("MainColor");
-        //var colorString = _remoteConfig.GetStringValue("MainColor");
-        //if (colorString == "White") { mainColor = Color.white; }
-        //if (colorString == "Green") { mainColor = Color.green; }
-        
-
         isStarted = true;
     }
 

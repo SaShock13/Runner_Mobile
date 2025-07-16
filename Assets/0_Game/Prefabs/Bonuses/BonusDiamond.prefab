@@ -5033,7 +5033,7 @@ MonoBehaviour:
   collectVFX: {fileID: 4879675116189563310}
   collectAudioClip: {fileID: 0}
   bonusType: 2
-  _renderer: {fileID: 2666529704751296973}
+  _renderer: {fileID: 1067319720054664523}
   duration: 0
 --- !u!1001 &9138241983158330211
 PrefabInstance:
@@ -5237,6 +5237,12 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 295153876018343228}
   m_SourcePrefab: {fileID: 100100000, guid: 5a2ef7db5b7c1db4a8adf9e71ea2e879, type: 3}
+--- !u!23 &1067319720054664523 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 8174087915839119904, guid: 5a2ef7db5b7c1db4a8adf9e71ea2e879,
+    type: 3}
+  m_PrefabInstance: {fileID: 9205304895572791147}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1571507579820903582 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7669856486780617717, guid: 5a2ef7db5b7c1db4a8adf9e71ea2e879,

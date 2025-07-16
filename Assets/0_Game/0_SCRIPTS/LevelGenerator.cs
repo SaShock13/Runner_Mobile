@@ -6,15 +6,16 @@ using Zenject;
 public class LevelGenerator : MonoBehaviour
 {
     [Header("Настройки генерации")]
-    [SerializeField] private float _generationDistance = 20f; // Дистанция до генерируемой стены
+    [SerializeField] private float _wallGenerationDistance = 20f; // Дистанция до генерируемой стены
+    [SerializeField] private float _groundGenerationDistance = 200f; // Дистанция до генерируемой плиты пола
     [SerializeField] private float _deleteDistance = 30f;     // Дистанция удаления пройденных стен
     [SerializeField] private int _maxWalls = 5;               // Максимальное количество стен в памяти
-    [SerializeField] private int _maxFloors = 5;               // Максимальное количество плит пола в памяти
+    [SerializeField] private int _maxFloors = 10;               // Максимальное количество плит пола в памяти
     [SerializeField] private float wallsStep = 10f;             // шаг между стенами
     [SerializeField][Range(0, 1)] private float _betweenBonusChance = 0.9f; // Шанс бонуса между стенами
 
     [Header("Префабы")]
-    [SerializeField] private GameObject _floorPrefab;
+    [SerializeField] private GameObject[] _floorPrefabs;
     [SerializeField] private GameObject[] _obstaclePrefabs;   // 2 - непроходимое
 
     [Header("Список лута с весами") ]
@@ -26,7 +27,7 @@ public class LevelGenerator : MonoBehaviour
     private List<GameObject> _activeFloors = new List<GameObject>();
     private float _nextWallZPos = 0f;
     private float _nextFloorZPos = 0f;
-    private float floorStep = 10f; // шаг между плитами пола
+    private float floorStep = 50f; // шаг между плитами пола
     private float bonusToWallMinDistance = 1f;
     private Color mainColor;
     private FirebaseRemoteConfigManager _remoteConfig;
@@ -72,7 +73,7 @@ public class LevelGenerator : MonoBehaviour
         if (isStarted)
         {
             // Генерация стен при приближении игрока
-            if (_player.position.z + _generationDistance > _nextWallZPos)
+            if (_player.position.z + _wallGenerationDistance > _nextWallZPos)
             {
                 if (isNeedToGenerate)
                 {
@@ -81,12 +82,14 @@ public class LevelGenerator : MonoBehaviour
                 _nextWallZPos += wallsStep;
             }
 
-            if (_player.position.z + _generationDistance > _nextFloorZPos)
+            if (_player.position.z + _groundGenerationDistance > _nextFloorZPos)
             {
+
+                Debug.Log($"_player.position.z + _groundGenerationDistance > _nextFloorZPos {this}");
                 GenerateFloor(_nextFloorZPos);
                 _nextFloorZPos += floorStep;
             }
-            _maxFloors = (int)(_generationDistance / floorStep) + 1;
+            _maxFloors = (int)(_groundGenerationDistance / floorStep) + 1;
 
             // Удаление пройденных стен
             if (_activeWalls.Count > _maxWalls)
@@ -158,7 +161,7 @@ public class LevelGenerator : MonoBehaviour
 
     private void GenerateFloor(float zPos)
     {
-        var floorTile = Instantiate(_floorPrefab, new Vector3(0, 0, zPos), Quaternion.identity);
+        var floorTile = Instantiate(_floorPrefabs[Random.Range(0,_floorPrefabs.Length)], new Vector3(0, 0, zPos), Quaternion.identity);
         _activeFloors.Add(floorTile);
     }
 

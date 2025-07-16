@@ -57,6 +57,7 @@ MonoBehaviour:
   skinHolder: {fileID: 2927912552215385952}
   _animator: {fileID: 0}
   isMobile: 1
+  isInvincible: 1
 --- !u!114 &-5858893229877297218
 MonoBehaviour:
   m_ObjectHideFlags: 0

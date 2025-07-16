@@ -19,6 +19,7 @@ public class Player : MonoBehaviour
     IAsssetProvider _asssetProvider;
     private Tutorial _tutorial;
     private PlayerStats _stats;
+    [SerializeField] bool isInvincible = true;
 
     [Inject]
     public void Construct( EventBus eventBus, PlayerAnimatorManager animatorManager, IAsssetProvider asssetProvider, Tutorial tutorial, PlayerStats stats)
@@ -36,6 +37,7 @@ public class Player : MonoBehaviour
         newPOs.z = -7.93f;
         transform.position = newPOs;
         _stats.ResetStats();
+        if (isInvincible) { _stats.IsInvincible = true; }
 
     }
 

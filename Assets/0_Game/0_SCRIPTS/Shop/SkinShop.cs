@@ -91,9 +91,9 @@ public class SkinShop : MonoBehaviour
 
         if (skin.purchased)
         {
-            Debug.Log($"skin.purchased {skin.purchased}");
+            DebugUtils.LogEditor($"skin.purchased {skin.purchased}");
             _player.SetSkinPrefab(skin.prefab);
-            Debug.Log($"Скин {skin.skinName} выбран!");
+            DebugUtils.LogEditor($"Скин {skin.skinName} выбран!");
         }
         else
         {
@@ -101,11 +101,11 @@ public class SkinShop : MonoBehaviour
             {
                 _playerWallet.SpendCurrencies(skin.price);
                 skin.purchased = true;
-                Debug.Log($"skin.purchased {skin.purchased}");
+                DebugUtils.LogEditor($"skin.purchased {skin.purchased}");
                 //actionButton.GetComponentInChildren<TMP_Text>().text = "Выбрать";
                 //actionButton.interactable = true;
             }
-            else Debug.Log($"Not enough currencies {this}");
+            else DebugUtils.LogEditor($"Not enough currencies {this}");
             
         }
     }

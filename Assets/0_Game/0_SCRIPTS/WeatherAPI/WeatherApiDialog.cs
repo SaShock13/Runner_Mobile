@@ -22,7 +22,7 @@ public class WeatherApiDialog : MonoBehaviour
     async void Start()
     {
 
-        Debug.Log($"start {this}");
+        DebugUtils.LogEditor($"start {this}");
         date = DateTime.Today.ToString("yyyy-MM-dd");
         cityView.text = cityRus;
         tempView.text = "0";
@@ -55,8 +55,8 @@ public class WeatherApiDialog : MonoBehaviour
             var weatherData = JsonUtility.FromJson<WeatherApiResponse>(weatherTask.Result);
             var astronomyData = JsonUtility.FromJson<AstronomyResponse>(astroTask.Result);
 
-            Debug.Log($"🌡 Температура: {weatherData.current.temp_c}°C");
-            Debug.Log($"🌇 Закат: {astronomyData.astronomy.astro.sunset}");
+            DebugUtils.LogEditor($"🌡 Температура: {weatherData.current.temp_c}°C");
+            DebugUtils.LogEditor($"🌇 Закат: {astronomyData.astronomy.astro.sunset}");
 
             tempView.text = weatherData.current.temp_c.ToString();
             humView.text = weatherData.current.humidity.ToString();
@@ -101,10 +101,10 @@ public class WeatherApiDialog : MonoBehaviour
             {
                 string json = request.downloadHandler.text;
                 WeatherApiResponse weatherData = JsonUtility.FromJson<WeatherApiResponse>(json);
-                Debug.Log($"Температура в {weatherData.location.name}: {weatherData.current.temp_c}°C");
-                Debug.Log($" {weatherData.current.temp_c}: ");
-                Debug.Log($"{weatherData.current.humidity}: ");
-                Debug.Log($" {weatherData.current.wind_kph}: ");
+                DebugUtils.LogEditor($"Температура в {weatherData.location.name}: {weatherData.current.temp_c}°C");
+                DebugUtils.LogEditor($" {weatherData.current.temp_c}: ");
+                DebugUtils.LogEditor($"{weatherData.current.humidity}: ");
+                DebugUtils.LogEditor($" {weatherData.current.wind_kph}: ");
                 tempView.text = weatherData.current.temp_c.ToString();
                 humView.text = weatherData.current.humidity.ToString();
                 float wind_mps = weatherData.current.wind_kph * 1000 / 3600;
@@ -124,8 +124,8 @@ public class WeatherApiDialog : MonoBehaviour
             {
                 string json = request.downloadHandler.text;
                 var weatherData = JsonUtility.FromJson<AstronomyResponse>(json);
-                Debug.Log($"Восход в : {weatherData.astronomy.astro.sunrise}");
-                Debug.Log($"Закат в {weatherData.astronomy.astro.sunset}: ");
+                DebugUtils.LogEditor($"Восход в : {weatherData.astronomy.astro.sunrise}");
+                DebugUtils.LogEditor($"Закат в {weatherData.astronomy.astro.sunset}: ");
                 sunriseView.text = weatherData.astronomy.astro.sunrise.ToString();
                 sunsetView.text = weatherData.astronomy.astro.sunset.ToString();
                 //cityView.text = city;

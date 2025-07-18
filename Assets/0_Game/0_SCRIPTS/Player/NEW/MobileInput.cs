@@ -43,8 +43,8 @@ public class MobileInput: IInput
 
     private void EndSwipe(InputAction.CallbackContext ctx)
     {
-        OnTouchEnd?.Invoke();
-        Debug.Log($"EndSwipe {this}");
+        //OnTouchEnd?.Invoke();
+        DebugUtils.LogEditor($"EndSwipe {this}");
         if (!swipeInProgress) return;
         swipeInProgress = false;
 
@@ -56,10 +56,10 @@ public class MobileInput: IInput
             OnMessage?.Invoke($" CurrentPosition {CurrentPosition}   delta {delta} startPos {startPos} endPos {endPos}");
             return;
         }
-            OnSwipe?.Invoke();
+            //OnSwipe?.Invoke();
         if (Mathf.Abs(delta.x) > Mathf.Abs(delta.y))
         {
-            if (delta.x > 0) OnSwipeRight?.Invoke();
+            if (delta.x > 0)  OnSwipeRight?.Invoke();
             else OnSwipeLeft?.Invoke();
         }
         else
@@ -72,7 +72,7 @@ public class MobileInput: IInput
     private void StartSwipe(InputAction.CallbackContext ctx)
     {
         OnTouchStart?.Invoke();
-        Debug.Log($"End Swipe {this}");
+        DebugUtils.LogEditor($"End Swipe {this}");
         swipeInProgress = true;
         startPos = CurrentPosition;
     }   

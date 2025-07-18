@@ -158,7 +158,7 @@ public class PlayerMovement : MonoBehaviour
         }
         else 
         {
-            Debug.Log($"buffered = StrafeRight; {this}");
+            DebugUtils.LogEditor($"buffered = StrafeRight; {this}");
             bufferedMove = StrafeRight;
         }
     }
@@ -180,7 +180,7 @@ public class PlayerMovement : MonoBehaviour
         else 
         {
 
-            Debug.Log($"buffered = StrafeLeft {this}");
+            DebugUtils.LogEditor($"buffered = StrafeLeft {this}");
             bufferedMove = StrafeLeft;
         }
     }

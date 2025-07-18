@@ -52,6 +52,12 @@ public class MenuView : MonoBehaviour
     private TextMeshProUGUI pauseButtonText;
     private bool isFirstEnter = true;
 
+
+
+    float deltaSum = 0f;
+    int frameCount = 0;
+    public float updateInterval = 0.5f;
+
     [Inject]
     public void Construct(Player player, EventBus eventBus, PlayerProgress progress, IDataService dataService)
     {
@@ -153,7 +159,7 @@ public class MenuView : MonoBehaviour
     private void OnProgressLoaded()
     {
 
-        Debug.Log($"OnProgressLoaded  in hud  name {_progress.Name}");
+        DebugUtils.LogEditor($"OnProgressLoaded  in hud  name {_progress.Name}");
         if (!_progress.Name.IsEmpty())
         {
             isFirstEnter = false;
@@ -203,7 +209,7 @@ public class MenuView : MonoBehaviour
             _progress.Name = playerName;
             _dataService.SavePlayerProgress(_progress); 
         }
-        Debug.Log($"on start _progress.Name  {_progress.Name}");
+        DebugUtils.LogEditor($"on start _progress.Name  {_progress.Name}");
         _eventBus.PublishOnGameStartRequestEvent();
     }
 
@@ -294,20 +300,32 @@ public class MenuView : MonoBehaviour
         }        
     }
 
-    IEnumerator Start()
+    void Start()
     {
+        //Application.targetFrameRate = 60;
         playerMovement = _player.gameObject.GetComponent<PlayerMovement>();
         health = _player.gameObject.GetComponent<PlayerHealth>();
         startMenuPanel.SetActive(true);        
-        while (true)
-        {
-            fpsText.text = (1 / Time.deltaTime).ToString("F1");
-            yield return new WaitForSeconds(0.5f);
-        }
+        //while (true)
+        //{
+        //    fpsText.text = (1 / Time.deltaTime).ToString("F1");
+        //    yield return new WaitForSeconds(0.5f);
+        //}
+
     }
 
     private void Update()
     {
+        deltaSum += Time.unscaledDeltaTime;
+        frameCount++;
+
+        if (deltaSum >= updateInterval)
+        {
+            float fps = frameCount / deltaSum;
+            fpsText.text = fps.ToString("F1");
+            deltaSum = 0f;
+            frameCount = 0;
+        }
         if (Input.GetKeyDown(KeyCode.P))
         {
             ShowWeather();

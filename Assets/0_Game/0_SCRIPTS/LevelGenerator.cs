@@ -46,13 +46,13 @@ public class LevelGenerator : MonoBehaviour
 
     public void StartGeneration()
     {
-        Debug.Log($"StartGeneration {this}");
+        DebugUtils.LogEditor($"StartGeneration {this}");
         for (int i = 0; i < 3; i++)
         {
             GenerateFloor(_nextFloorZPos);
             _nextFloorZPos += floorStep;
         }
-        Debug.Log($"mainColor {_remoteConfig.GetColorValue("MainColor")}");
+        DebugUtils.LogEditor($"mainColor {_remoteConfig.GetColorValue("MainColor")}");
         mainColor = _remoteConfig.GetColorValue("MainColor");
         isStarted = true;
     }
@@ -85,7 +85,7 @@ public class LevelGenerator : MonoBehaviour
             if (_player.position.z + _groundGenerationDistance > _nextFloorZPos)
             {
 
-                Debug.Log($"_player.position.z + _groundGenerationDistance > _nextFloorZPos {this}");
+                DebugUtils.LogEditor($"_player.position.z + _groundGenerationDistance > _nextFloorZPos {this}");
                 GenerateFloor(_nextFloorZPos);
                 _nextFloorZPos += floorStep;
             }

@@ -41,7 +41,7 @@ public class DataProvider : IDataService
             _cachedProgress.LastSaveTime = DateTime.UtcNow;
             string json = JsonUtility.ToJson(progress);
             _storage.Save(PROGRESS_KEY, json);
-            Debug.Log($"SavePlayerProgress sucseed {this}");
+            DebugUtils.LogEditor($"SavePlayerProgress sucseed {this}");
         }
         catch (Exception ex)
         {

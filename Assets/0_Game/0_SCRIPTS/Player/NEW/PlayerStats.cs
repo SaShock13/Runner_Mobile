@@ -36,14 +36,14 @@ public class PlayerStats  : IDisposable
         _eventBus.OnSpeedBoostCollectedEvent += SpeedBoostCollected;
         currenHealth = maxhealth;
 
-        Debug.Log($"PlayerStats ctor {this}");
+        DebugUtils.LogEditor($"PlayerStats ctor {this}");
     }
     
     private async void SpeedBoostCollected(float duration)
     {
         if (!IsSpeedBoosted)
         {
-            Debug.Log($"SpeedBoost {this}");
+            DebugUtils.LogEditor($"SpeedBoost {this}");
             var startspeed = currentRunSpeed;
             DOTween.To(
                 () => currentRunSpeed,
@@ -87,7 +87,7 @@ public class PlayerStats  : IDisposable
 
     private async void MultiplyerX2Collected(float duration)
     {
-        Debug.Log($"MultiplyerX2 {this}");
+        DebugUtils.LogEditor($"MultiplyerX2 {this}");
         IsMultilier = true;
         bonusMultiplyer = 2f;
         await UniTask.Delay(TimeSpan.FromSeconds(duration));
@@ -97,7 +97,7 @@ public class PlayerStats  : IDisposable
 
     private async void InvincibilityCollected(float duration)
     {
-        Debug.Log($"IsInvincible {this}");
+        DebugUtils.LogEditor($"IsInvincible {this}");
         IsInvincible = true;
         await UniTask.Delay(TimeSpan.FromSeconds(duration));
         IsInvincible = false;

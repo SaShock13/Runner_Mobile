@@ -47,7 +47,7 @@ public class PlayerCollision : MonoBehaviour
 
         var bonus = other.GetComponentInParent<Bonus>();
         bonus.Collect();
-            Debug.Log($"ProcessCollectible  {bonus.bonusType}");
+            DebugUtils.LogEditor($"ProcessCollectible  {bonus.bonusType}");
         switch (bonus.bonusType)
         {
             case BonusType.Simple:

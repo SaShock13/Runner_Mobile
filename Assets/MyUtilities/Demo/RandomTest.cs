@@ -29,7 +29,7 @@ public class RandomTest : MonoBehaviour
         for (int i = 0; i < colors.Length; i++)
         {
             float percentage = (float)counts[i] / trials * 100;
-            Debug.Log($"{colors[i].color}: {percentage:F1}% (expected: {colors[i].weight / TotalWeight() * 100:F1}%)");
+            DebugUtils.LogEditor($"{colors[i].color}: {percentage:F1}% (expected: {colors[i].weight / TotalWeight() * 100:F1}%)");
         }
     }
 

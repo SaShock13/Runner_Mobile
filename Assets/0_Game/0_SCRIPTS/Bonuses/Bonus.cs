@@ -30,7 +30,7 @@ public class Bonus : MonoBehaviour
     internal void Collect()
     {
 
-        Debug.Log($"Bonus Collect {this.bonusType}");
+        DebugUtils.LogEditor($"Bonus Collect {this.bonusType}");
         if(collectAudioClip !=null)
         {
             GetComponent<AudioSource>().clip = collectAudioClip;  

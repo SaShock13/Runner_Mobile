@@ -34,7 +34,7 @@ public class FirebaseRemoteConfigManager : MonoBehaviour
 
         if (dependencyTask.Result == DependencyStatus.Available)
         {
-            Debug.Log("Firebase dependencies resolved");
+            DebugUtils.LogEditor("Firebase dependencies resolved");
             SetupRemoteConfig();
         }
         else
@@ -57,7 +57,7 @@ public class FirebaseRemoteConfigManager : MonoBehaviour
         {
             if (task.IsCompleted)
             {
-                Debug.Log("RemoteConfig defaults set");
+                DebugUtils.LogEditor("RemoteConfig defaults set");
                 FetchConfigValues();
             }
             else
@@ -69,7 +69,7 @@ public class FirebaseRemoteConfigManager : MonoBehaviour
 
     private void FetchConfigValues()
     {
-        Debug.Log("Fetching RemoteConfig values...");
+        DebugUtils.LogEditor("Fetching RemoteConfig values...");
 
         // Установка времени кэширования (0 секунд для разработки)
         TimeSpan cacheExpiration = TimeSpan.Zero;
@@ -87,10 +87,10 @@ public class FirebaseRemoteConfigManager : MonoBehaviour
             }
             else if (task.IsCompleted)
             {
-                Debug.Log("Fetch completed");
+                DebugUtils.LogEditor("Fetch completed");
                 _remoteConfig.ActivateAsync().ContinueWithOnMainThread(activateTask =>
                 {
-                    Debug.Log("RemoteConfig activated");
+                    DebugUtils.LogEditor("RemoteConfig activated");
                     DisplayConfigValues();
                 });
             }
@@ -100,10 +100,10 @@ public class FirebaseRemoteConfigManager : MonoBehaviour
     private void DisplayConfigValues()
     {
         string testValue = _remoteConfig.GetValue(TEST_VARIABLE_KEY).StringValue;
-        Debug.Log($"___________________________________");
-        Debug.Log($"RemoteConfig TestVariable = {testValue}");
+        DebugUtils.LogEditor($"___________________________________");
+        DebugUtils.LogEditor($"RemoteConfig TestVariable = {testValue}");
         text.text = testValue;
-        Debug.Log($"___________________________________");
+        DebugUtils.LogEditor($"___________________________________");
 
         _isFirebaseInitialized = true;
     }

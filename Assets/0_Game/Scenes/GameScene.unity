@@ -17441,6 +17441,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 332116648}
+  - component: {fileID: 332116649}
   m_Layer: 0
   m_Name: System
   m_TagString: Untagged
@@ -17469,6 +17470,18 @@ Transform:
   - {fileID: 1636138020}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &332116649
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 332116646}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ef5e4bb0ce7c1446aed3e59a2bd63e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &334668992 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6719095612605758196, guid: a1143479a401a17489dd8db0dc32b009,
@@ -39251,6 +39264,7 @@ MonoBehaviour:
   weatherVidget: {fileID: 1584345087}
   weather: {fileID: 959923235}
   showWeather: 0
+  updateInterval: 0.5
 --- !u!114 &735621384
 MonoBehaviour:
   m_ObjectHideFlags: 0

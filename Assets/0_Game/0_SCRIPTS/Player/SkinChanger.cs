@@ -59,12 +59,12 @@ public class SkinChanger : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.U))
         {
 
-            Debug.Log($"Выгрузка {Addressables.ReleaseInstance(girlPrefab)}"); 
+            DebugUtils.LogEditor($"Выгрузка {Addressables.ReleaseInstance(girlPrefab)}"); 
 
         }
         if (Input.GetKeyDown(KeyCode.I))
         {
-            Debug.Log($"Выгрузка {Addressables.ReleaseInstance(boyPrefab)}");
+            DebugUtils.LogEditor($"Выгрузка {Addressables.ReleaseInstance(boyPrefab)}");
         }
     }
 }

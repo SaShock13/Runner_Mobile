@@ -67,7 +67,7 @@ public class Player : MonoBehaviour
 
     public void SetSkinPrefab(GameObject skinPrefab)
     {
-        Debug.Log($"SetSkinPrefab PLayer {this}");
+        DebugUtils.LogEditor($"SetSkinPrefab PLayer {this}");
         if (skinPrefab == null) return;
         if(currentSkin != null) Destroy(currentSkin);
         var skinGO = Instantiate(skinPrefab, skinHolder);

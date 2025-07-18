@@ -79,12 +79,12 @@ public class Game : MonoBehaviour
         isPaused = false;
         Time.timeScale = 1;
         startTime = Time.time;
-        Debug.Log($"StartGame  st5ats  {_playerStats.currenHealth}");
+        DebugUtils.LogEditor($"StartGame  st5ats  {_playerStats.currenHealth}");
     }
 
     private void OnRequestPause()
     {
-        Debug.Log($"GameManager Get pause Request {this}");
+        DebugUtils.LogEditor($"GameManager Get pause Request {this}");
         if (isPaused) Resume();
         else Pause();
     }
@@ -118,16 +118,16 @@ public class Game : MonoBehaviour
         _playerProgress.Diamonds += _playerStats.diamonds;
         _dataService.SavePlayerProgress(_playerProgress);
 
-        Debug.Log($" всего.Coins  {_playerProgress.Coins}");
-        Debug.Log($" всего.Diamonds {_playerProgress.Diamonds}");
-        Debug.Log($" всего.HighScores {_playerProgress.HighScore}");
+        DebugUtils.LogEditor($" всего.Coins  {_playerProgress.Coins}");
+        DebugUtils.LogEditor($" всего.Diamonds {_playerProgress.Diamonds}");
+        DebugUtils.LogEditor($" всего.HighScores {_playerProgress.HighScore}");
         Invoke("GameOver", 2);
     }
 
     private void GameOver()
     {
 
-        Debug.Log($"GameOver {this}");
+        DebugUtils.LogEditor($"GameOver {this}");
         _eventBus.PublishOnGameOverEvent();
 
     }

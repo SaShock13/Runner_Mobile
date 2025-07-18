@@ -14,7 +14,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &7558927500123501376
 Transform:
@@ -56,7 +56,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &4638150007957979084
 Transform:
@@ -93,7 +93,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &4274378038139308259
 Transform:
@@ -198,7 +198,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &7068546415942569741
 Transform:
@@ -239,7 +239,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &6248698027396402327
 Transform:
@@ -345,7 +345,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &6292483062526303625
 Transform:
@@ -382,7 +382,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &4762731693683720588
 Transform:
@@ -490,7 +490,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &7783668841346319429
 Transform:
@@ -595,6 +595,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Env_Motel_02
       objectReference: {fileID: 0}
+    - target: {fileID: 1398429965378699571, guid: b846e66566f20394ea5e77dbedbed858,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 1739489003949300617, guid: b846e66566f20394ea5e77dbedbed858,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -669,6 +674,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Env_ResidentBuilding_05
       objectReference: {fileID: 0}
+    - target: {fileID: 2661994169556932180, guid: 0972cd229ac9d20489bbc3a57a51be46,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 3439234144262573294, guid: 0972cd229ac9d20489bbc3a57a51be46,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -742,6 +752,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Env_CommercialBuilding_01
+      objectReference: {fileID: 0}
+    - target: {fileID: 1360468252654966213, guid: 47589020b1f8f044082bb38c7f20a651,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 1849442357326532479, guid: 47589020b1f8f044082bb38c7f20a651,
         type: 3}
@@ -867,6 +882,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Env_CommercialBuilding_03
       objectReference: {fileID: 0}
+    - target: {fileID: 650591154451796056, guid: 459bf6bc825ea9845822408053e0b7aa,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -900,6 +920,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Floor
+      objectReference: {fileID: 0}
+    - target: {fileID: 7603856105258421461, guid: 42c99b83239431b4dacb8077c67279ee,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 8279409880599768066, guid: 42c99b83239431b4dacb8077c67279ee,
         type: 3}
@@ -1030,6 +1055,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Prop_StreetSign_Speed_55
       objectReference: {fileID: 0}
+    - target: {fileID: 4229988685527396178, guid: 9cc691e37e08e6c4fa246f3c258a5a41,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1053,6 +1083,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Prop_Tree_05
+      objectReference: {fileID: 0}
+    - target: {fileID: 2315945574744369591, guid: 77f6a103abe35be4988d429034fe818f,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 3127807761391743757, guid: 77f6a103abe35be4988d429034fe818f,
         type: 3}
@@ -1128,6 +1163,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Prop_StreetSign_Parking
       objectReference: {fileID: 0}
+    - target: {fileID: 1163017485037031674, guid: 6388d0a6cd6a6b941a732f852daec1e5,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 1974844452627483200, guid: 6388d0a6cd6a6b941a732f852daec1e5,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1202,6 +1242,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Prop_Tree_08
       objectReference: {fileID: 0}
+    - target: {fileID: 6184434111218818029, guid: 5ed59cd74d779b247a0de3970801fda1,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 6816293291331535191, guid: 5ed59cd74d779b247a0de3970801fda1,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1275,6 +1320,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Prop_RoofWaterStore_01
+      objectReference: {fileID: 0}
+    - target: {fileID: 8329679192468709426, guid: 47306f9326ee563408b420aa09b37e95,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 8706346190003714696, guid: 47306f9326ee563408b420aa09b37e95,
         type: 3}
@@ -1400,6 +1450,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Prop_Tree_03
       objectReference: {fileID: 0}
+    - target: {fileID: 2060589233173438422, guid: 8ce6b6e7fcdc39243881ee68d05db72a,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1473,6 +1528,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Prop_RoofWaterStore_04
+      objectReference: {fileID: 0}
+    - target: {fileID: 8016488275312950323, guid: 78049b883c6549443a44bd045f2b8ce6,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1548,6 +1608,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Prop_StreetSign_TwoRoads
       objectReference: {fileID: 0}
+    - target: {fileID: 6738442032925104237, guid: 1f799de0e108bb046af6da5a76752b99,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1621,6 +1686,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Prop_Tree_04
+      objectReference: {fileID: 0}
+    - target: {fileID: 9208280024704128269, guid: aed1104f428065b49adcf13dac2ed8c7,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1696,6 +1766,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Env_ResidentBuilding_02
       objectReference: {fileID: 0}
+    - target: {fileID: 7861617570233870979, guid: 5154c08efe2be6a44bc4d1ff6a11317e,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1719,6 +1794,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Prop_RoadCone_03
+      objectReference: {fileID: 0}
+    - target: {fileID: 8465261948836377368, guid: e91f9824db835f84c9efba315741239a,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 9093179177027611042, guid: e91f9824db835f84c9efba315741239a,
         type: 3}
@@ -1793,6 +1873,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Prop_Tree_01
+      objectReference: {fileID: 0}
+    - target: {fileID: 3489192851198715285, guid: 6ce5d694780084341b1025650bdd432c,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 4262598523984838447, guid: 6ce5d694780084341b1025650bdd432c,
         type: 3}

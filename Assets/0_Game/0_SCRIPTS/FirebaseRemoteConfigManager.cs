@@ -122,22 +122,22 @@ public class FirebaseRemoteConfigManager : MonoBehaviour
         return (int)num;
     }
 
-    private void OnGUI()
-    {
-        if (!_isFirebaseInitialized)
-        {
-            GUI.Label(new Rect(10, 10, 300, 30), "Initializing Firebase...");
-        }
-        else
-        {
-            string testValue = _remoteConfig.GetValue(TEST_VARIABLE_KEY).StringValue;
+    //private void OnGUI()
+    //{
+    //    if (!_isFirebaseInitialized)
+    //    {
+    //        GUI.Label(new Rect(10, 10, 300, 30), "Initializing Firebase...");
+    //    }
+    //    else
+    //    {
+    //        string testValue = _remoteConfig.GetValue(TEST_VARIABLE_KEY).StringValue;
 
-            GUI.Label(new Rect(10, 10, 300, 30), $"TestVariable: {testValue}");
-        }
+    //        GUI.Label(new Rect(10, 10, 300, 30), $"TestVariable: {testValue}");
+    //    }
 
-        if (GUI.Button(new Rect(10, 50, 200, 30), "Refresh Config"))
-        {
-            FetchConfigValues();
-        }
-    }
+    //    if (GUI.Button(new Rect(10, 50, 200, 30), "Refresh Config"))
+    //    {
+    //        FetchConfigValues();
+    //    }
+    //}
 }

@@ -10,6 +10,7 @@ public class Game : MonoBehaviour
 	private PlayerStats _playerStats;
 	private IDataService _dataService;
     private PlayerProgress _playerProgress;
+    private DistanceMeasurer _distanceMeasurer;
     private float startTime;
     private LevelGenerator _levelGenerator;
     private Tutorial _tutorial;
@@ -17,7 +18,7 @@ public class Game : MonoBehaviour
 
     [Inject]
 	public void Construct(EventBus eventBus, Player player, PlayerProgress progress, PlayerStats playerStats, IDataService dataService
-        , LevelGenerator levelGenerator , Tutorial tutorial)
+        , LevelGenerator levelGenerator , Tutorial tutorial, DistanceMeasurer distanceMeasurer)
 	{
 		_eventBus = eventBus;
         _player = player;
@@ -26,6 +27,7 @@ public class Game : MonoBehaviour
         _playerProgress = progress;
         _levelGenerator = levelGenerator;
         _tutorial = tutorial;
+        _distanceMeasurer = distanceMeasurer;
 	}
 
     private void Awake()
@@ -76,10 +78,11 @@ public class Game : MonoBehaviour
         else _eventBus.PublishOnTutorialFinishedEvent();      
         _eventBus.PublishOnGameStartEvent();
         _levelGenerator.StartGeneration();
+        _distanceMeasurer.StartMeasure();
         isPaused = false;
         Time.timeScale = 1;
         startTime = Time.time;
-        DebugUtils.LogEditor($"StartGame  st5ats  {_playerStats.currenHealth}");
+
     }
 
     private void OnRequestPause()
@@ -117,6 +120,7 @@ public class Game : MonoBehaviour
         _playerProgress.Coins += _playerStats.coins;
         _playerProgress.Diamonds += _playerStats.diamonds;
         _dataService.SavePlayerProgress(_playerProgress);
+        _distanceMeasurer.StopMeasure();
 
         DebugUtils.LogEditor($" всего.Coins  {_playerProgress.Coins}");
         DebugUtils.LogEditor($" всего.Diamonds {_playerProgress.Diamonds}");

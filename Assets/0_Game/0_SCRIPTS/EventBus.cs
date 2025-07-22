@@ -31,6 +31,7 @@ public class EventBus
     public event Action OnPauseEvent;
     public event Action OnResumeEvent;
 
+    public event Action<float> OnDistanceChangedEvent;
 
     public void PublishOnPlayerDamaged(int max, int current)
     {
@@ -117,7 +118,8 @@ public class EventBus
     public void PublishOnSpeedChangedEvent(float speed)
     {
         OnSpeedChangedEvent?.Invoke(speed);
-    }
+    } 
+    
     public void PublishOnRequestPauseEvent()
     {
         OnRequestPauseEvent?.Invoke();
@@ -144,6 +146,10 @@ public class EventBus
         OnResumeEvent?.Invoke();
     }
 
+    public void PublishOnDistanceChangedEvent(float distance)
+    {
+        OnDistanceChangedEvent?.Invoke(distance);
+    }
 
 
 

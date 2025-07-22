@@ -28,6 +28,7 @@ public class MenuView : MonoBehaviour
     [SerializeField] TMP_Text livesText;
     [SerializeField] TMP_Text nameText;
     [SerializeField] TMP_Text speedText;
+    [SerializeField] TMP_Text distancedText;
     [SerializeField] TMP_Text infoText;
     [SerializeField] TMP_Text fpsText;
     [SerializeField] TMP_Text bonusCounterText;
@@ -84,6 +85,7 @@ public class MenuView : MonoBehaviour
         _eventBus.OnSpeedBoostCollectedEvent += SpeedBoost;
         _eventBus.OnInvincibilityCollectedEvent += Invincibility;
         _eventBus.OnMultiplyerX2CollectedEvent += MultiplyerX2;
+        _eventBus.OnDistanceChangedEvent += DistanceUpdate;
         shopPanel.SetActive(false);
         gameMenuPanel.SetActive(false);
         pauseBtn.onClick.AddListener(OnPauseClicked);
@@ -106,6 +108,11 @@ public class MenuView : MonoBehaviour
             weather.enabled = false;
             weatherVidget.SetActive(false);
         }
+    }
+
+    private void DistanceUpdate(float newDistance)
+    {
+        distancedText.text = newDistance.ToString("F1");
     }
 
     private void OnDisable()

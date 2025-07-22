@@ -24,6 +24,10 @@ public class PlayerStats  : IDisposable
     private EventBus _eventBus;
     public bool IsAlive => currenHealth > 0;
 
+    public float Distance { get => distance; set => distance = value; }
+
+    private float distance = 0;
+
     [Inject]
     public PlayerStats(EventBus eventBus)
     {
@@ -78,6 +82,7 @@ public class PlayerStats  : IDisposable
         strafeTime = 0.5f;
         speedMultiplyer = 1.5f;
         bonusMultiplyer = 1f;
+        Distance = 0;
         _eventBus.PublishOnPlayerDamaged(maxhealth, currenHealth);
         _eventBus.PublishOnSpeedChangedEvent(currentRunSpeed);
         _eventBus.PublishOnBonusAmountChangedEvent(bonuses);

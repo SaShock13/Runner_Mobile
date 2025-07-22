@@ -8,6 +8,7 @@ public class SceneInstaller : MonoInstaller
     [SerializeField] LevelGenerator levelGenerator;
     [SerializeField] Tutorial tutorial;
     [SerializeField] FirebaseRemoteConfigManager remoteConfig;
+    [SerializeField] DistanceMeasurer distanceMeasurer;
 
     
 
@@ -19,6 +20,7 @@ public class SceneInstaller : MonoInstaller
         Container.Bind<Joystick>().FromInstance(joystick).AsSingle().NonLazy();
         Container.Bind<SoundManager>().FromInstance(soundManager).AsSingle().NonLazy();
         Container.Bind<LevelGenerator>().FromInstance(levelGenerator).AsSingle().NonLazy();
+        Container.Bind<DistanceMeasurer>().FromInstance(distanceMeasurer).AsSingle().NonLazy();
         Container.Bind<IAsssetProvider>().To<AddressablesAssetProvider>().AsSingle();
         Container.Bind<IDataService>().To<DataProvider>().AsSingle();
         Container.Bind<IDataStorage>().To<PlayerPrefsStorage>().AsSingle();

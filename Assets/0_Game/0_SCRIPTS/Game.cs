@@ -13,12 +13,13 @@ public class Game : MonoBehaviour
     private DistanceMeasurer _distanceMeasurer;
     private float startTime;
     private LevelGenerator _levelGenerator;
+    private SoundManager _soundManager;
     private Tutorial _tutorial;
     private bool _isFirtTime = true;
 
     [Inject]
 	public void Construct(EventBus eventBus, Player player, PlayerProgress progress, PlayerStats playerStats, IDataService dataService
-        , LevelGenerator levelGenerator , Tutorial tutorial, DistanceMeasurer distanceMeasurer)
+        , LevelGenerator levelGenerator , Tutorial tutorial, DistanceMeasurer distanceMeasurer, SoundManager soundManager)
 	{
 		_eventBus = eventBus;
         _player = player;
@@ -28,6 +29,7 @@ public class Game : MonoBehaviour
         _levelGenerator = levelGenerator;
         _tutorial = tutorial;
         _distanceMeasurer = distanceMeasurer;
+        _soundManager = soundManager;
 	}
 
     private void Awake()
@@ -53,6 +55,7 @@ public class Game : MonoBehaviour
     private void OnRequestMenu()
     {
         OnRequestPause();
+        _soundManager.PlayMusic(Sounds.menuMusic);
         _eventBus.PublishOnMenuEvent();
     }
 
@@ -66,6 +69,7 @@ public class Game : MonoBehaviour
     private void StartGame()
     {
         _player.ResetPlayer();
+        _soundManager.PlayMusic(Sounds.gameMusic);
         _levelGenerator.ResetLevel();
         _eventBus.PublishOnGameResetEvent();
         if (_playerProgress.IsFirstTime)
@@ -102,12 +106,14 @@ public class Game : MonoBehaviour
     private void Resume()
     {
         Time.timeScale = 1;
+        _soundManager.PlayMusic(Sounds.gameMusic);
         isPaused = false;
         _eventBus.PublishOnResumeEvent();
     }
 
     private void PlayerDeath()
     {
+        _soundManager.PlayMusic(Sounds.menuMusic);
         _player.Death();
         Firebase.Analytics.FirebaseAnalytics
                                             .LogEvent("Player_Death", "percent", 0.5f);

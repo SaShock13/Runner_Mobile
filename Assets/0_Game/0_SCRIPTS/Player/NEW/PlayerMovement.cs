@@ -116,21 +116,21 @@ public class PlayerMovement : MonoBehaviour
 
     public void Stop()
     {
-        _playerStats.currentRunSpeed = 0.0f;
+        _playerStats.CurrentRunSpeed = 0.0f;
         isCanRun = false;
         StopAllCoroutines();
     }
 
     private IEnumerator IncreaseSpeedCoroutine(float targetSpeed)
     {
-        while (_playerStats.currentRunSpeed < targetSpeed)
+        while (_playerStats.CurrentRunSpeed < targetSpeed)
         {
             yield return new WaitForSeconds(increaseSpeedTimeInterval);
-            _playerStats.currentRunSpeed += speedIncreseSpeed;
+            _playerStats.CurrentRunSpeed += speedIncreseSpeed;
             _playerStats.strafeTime -= Time.deltaTime * starafeIncreseSpeed;
-            _eventBus.PublishOnSpeedChangedEvent(_playerStats.currentRunSpeed);
+            _eventBus.PublishOnSpeedChangedEvent(_playerStats.CurrentRunSpeed);
             _eventBus.PublishOnGameDifficultyIncreasedEvent();
-            if (_playerStats.currentRunSpeed > 10 && _playerStats.currentRunSpeed < 11) {  }  
+            if (_playerStats.CurrentRunSpeed > 10 && _playerStats.CurrentRunSpeed < 11) {  }  
         }
     }
 
@@ -138,7 +138,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (isCanRun)
         {
-            transform.position += new Vector3(0, 0, direction.z) * _playerStats.currentRunSpeed * Time.deltaTime;
+            transform.position += new Vector3(0, 0, direction.z) * _playerStats.CurrentRunSpeed * Time.deltaTime;
         }
     }      
 

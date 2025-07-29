@@ -3,7 +3,8 @@ using UnityEngine;
 
 public enum Sounds
 {
-    backMusic,
+    gameMusic,
+    menuMusic,
     hit,
     jump,
     bonus,
@@ -16,7 +17,8 @@ public class SoundManager : MonoBehaviour
 {
     private AudioSource _musicSource;
     private AudioSource _sfxSource;
-    [SerializeField] private AudioClip _backgroundMusic;
+    [SerializeField] private AudioClip gamedMusic;
+    [SerializeField] private AudioClip _menuMusic;
     [SerializeField] private AudioClip _hitSound;
     [SerializeField] private AudioClip _jumpSound;
     [SerializeField] private AudioClip _slideSound;
@@ -29,7 +31,8 @@ public class SoundManager : MonoBehaviour
 
     public void Start()
     {
-        _soundLibrary[Sounds.backMusic] = _backgroundMusic;
+        _soundLibrary[Sounds.gameMusic] = gamedMusic;
+        _soundLibrary[Sounds.menuMusic] = _menuMusic;
         _soundLibrary[Sounds.hit] = _hitSound;
         _soundLibrary[Sounds.jump] = _jumpSound;
         _soundLibrary[Sounds.slide] = _slideSound;
@@ -39,7 +42,7 @@ public class SoundManager : MonoBehaviour
         _musicSource.volume = 1;
         _musicSource. volume = musicVolume;
         _sfxSource.volume = sfxVolume;
-        PlayMusic(Sounds.backMusic);
+        PlayMusic(Sounds.menuMusic);
     }
 
     private void Awake()

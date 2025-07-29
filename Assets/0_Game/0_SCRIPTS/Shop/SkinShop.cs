@@ -13,9 +13,13 @@ public class SkinShop : MonoBehaviour
     [SerializeField] private Button leftButton;
     [SerializeField] private Button rightButton;
 
+    [SerializeField] private TMP_Text shopCoinsAmount;
+    [SerializeField] private TMP_Text shopDiamondsAmount;
+
     [Inject] Player _player;
     [Inject] PlayerWallet _playerWallet;
     [Inject] FirebaseRemoteConfigManager _remoteConfigManager;
+    [Inject] PlayerProgress _progress;
 
 
     private GameObject currentSkinInstance;
@@ -51,10 +55,14 @@ public class SkinShop : MonoBehaviour
         { skins[2].price.costs.Add(new CurrencyCost(CurrencyType.Coins, _remoteConfigManager.GetIntValue("skin2_CoinPrice"))); }
         if (_remoteConfigManager.GetIntValue("skin2_DiamondPrice") > 0)
         { skins[2].price.costs.Add(new CurrencyCost(CurrencyType.Diamonds, _remoteConfigManager.GetIntValue("skin2_DiamondPrice"))); }
-
+        UpdateResourcesView();
     }
 
-
+    private void UpdateResourcesView()
+    {
+        shopCoinsAmount.text = _progress.Coins.ToString();
+        shopDiamondsAmount.text = _progress.Diamonds.ToString();
+    }
 
     public void ShowSkin(int index)
     {
@@ -102,7 +110,9 @@ public class SkinShop : MonoBehaviour
                 _playerWallet.SpendCurrencies(skin.price);
                 skin.purchased = true;
                 DebugUtils.LogEditor($"skin.purchased {skin.purchased}");
-                //actionButton.GetComponentInChildren<TMP_Text>().text = "Выбрать";
+
+                actionButton.GetComponentInChildren<TMP_Text>().text = "Выбрать";
+                UpdateResourcesView();
                 //actionButton.interactable = true;
             }
             else DebugUtils.LogEditor($"Not enough currencies {this}");

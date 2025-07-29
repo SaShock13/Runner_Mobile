@@ -13,6 +13,7 @@ public class Player : MonoBehaviour
     private PlayerMovement movement;
     public IInput _input;
     public Animator _animator;
+    public PlayerEffects _playerFX;
     public bool isMobile = true;
     private PlayerAnimatorManager _animatorManager;
     private EventBus _eventBus;
@@ -44,7 +45,7 @@ public class Player : MonoBehaviour
     private void Awake()
     {        
         movement = GetComponent<PlayerMovement>();
-        
+        _playerFX = GetComponent<PlayerEffects>();
         _input = new MobileInput(); 
         #if UNITY_EDITOR
         _input = GetComponent<KeyboardInput>();
@@ -63,6 +64,7 @@ public class Player : MonoBehaviour
     public void OnSkinLoaded()
     {
         _animatorManager.Initialize(_animator,_eventBus);
+        _playerFX.Initialize();
     }
 
     public void SetSkinPrefab(GameObject skinPrefab)

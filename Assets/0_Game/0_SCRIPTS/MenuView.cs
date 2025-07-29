@@ -44,10 +44,12 @@ public class MenuView : MonoBehaviour
     [SerializeField] GameObject weatherVidget;
     [SerializeField] WeatherApiDialog weather;
     [SerializeField] bool showWeather = false;
+    [SerializeField] TMP_Text statsText ;
 
     private CompositeDisposable _disposable = new();
     private SkinChanger _skinChanger;
     private PlayerProgress _progress;
+    private PlayerStats _stats;
     private IDataService _dataService;
     private bool isWeatherLoaded = false;
     private TextMeshProUGUI pauseButtonText;
@@ -60,13 +62,14 @@ public class MenuView : MonoBehaviour
     public float updateInterval = 0.5f;
 
     [Inject]
-    public void Construct(Player player, EventBus eventBus, PlayerProgress progress, IDataService dataService)
+    public void Construct(Player player, EventBus eventBus, PlayerProgress progress, IDataService dataService,PlayerStats playerStats)
     {
         _progress = progress;
         _eventBus = eventBus;
         _player = player;
         _dataService = dataService;
         _skinChanger = player.GetComponent<SkinChanger>();
+        _stats = playerStats;
     }
 
     private void Awake()
@@ -137,10 +140,6 @@ public class MenuView : MonoBehaviour
         gameMenuPanel.SetActive(true);
     }
 
-    private void ShowShop()
-    {
-        shopPanel.SetActive(true);
-    }
 
     private async void MultiplyerX2(float duration)
     {
@@ -234,6 +233,7 @@ public class MenuView : MonoBehaviour
 
     private void GameOver()
     {
+        statsText.text = _stats.ReturnStatistics();
         deathPanel.SetActive(true);
     }
 
@@ -269,7 +269,9 @@ public class MenuView : MonoBehaviour
 
     private void OnShopClicked()
     {
+        
         shopPanel.SetActive(true);
+
     }
     private void OnMainMenuClicked()
     {
@@ -309,16 +311,9 @@ public class MenuView : MonoBehaviour
 
     void Start()
     {
-        //Application.targetFrameRate = 60;
         playerMovement = _player.gameObject.GetComponent<PlayerMovement>();
         health = _player.gameObject.GetComponent<PlayerHealth>();
-        startMenuPanel.SetActive(true);        
-        //while (true)
-        //{
-        //    fpsText.text = (1 / Time.deltaTime).ToString("F1");
-        //    yield return new WaitForSeconds(0.5f);
-        //}
-
+        startMenuPanel.SetActive(true);    
     }
 
     private void Update()

@@ -62,6 +62,11 @@ public class DistanceMeasurer : MonoBehaviour
         _eventBus.PublishOnDistanceChangedEvent(measuredDistance);
     }
 
+    public float GetDistance()
+    {
+        return measuredDistance;
+    }
+
     private void OnDestroy()
     {
         StopMeasure();

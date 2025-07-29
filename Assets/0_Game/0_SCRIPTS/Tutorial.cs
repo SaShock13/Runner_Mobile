@@ -15,6 +15,7 @@ public class Tutorial : MonoBehaviour
     [SerializeField] private GameObject panel;
     [SerializeField] private RectTransform _rectTransform;
     [SerializeField] private TMP_Text tutText;
+    [SerializeField] private TMP_Text introText;
     private Vector2 _originalPosition;
 
     [Inject] private EventBus _bus;
@@ -58,6 +59,7 @@ public class Tutorial : MonoBehaviour
 
     private void OnSwipeUp()
     {
+        introText.enabled = false;
         if (isWaitForSwipeUp) StopTutorial();
     }
 

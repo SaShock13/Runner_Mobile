@@ -89,20 +89,18 @@ public class MenuView : MonoBehaviour
         _eventBus.OnCoinsAmountChangedEvent += UpdateCoins;
         _eventBus.OnDiamondAmountChangedEvent += UpdateDiamonds;
         _eventBus.OnProgressLoadedEvent += OnProgressLoaded;
-        _eventBus.OnSpeedBoostCollectedEvent += SpeedBoost;
-        _eventBus.OnInvincibilityCollectedEvent += Invincibility;
-        _eventBus.OnMultiplyerX2CollectedEvent += MultiplyerX2;
+        //_eventBus.OnSpeedBoostCollectedEvent += SpeedBoost;
+        //_eventBus.OnInvincibilityCollectedEvent += Invincibility;
+        //_eventBus.OnMultiplyerX2CollectedEvent += MultiplyerX2;
         _eventBus.OnDistanceChangedEvent += DistanceUpdate;
         shopPanel.SetActive(false);
         gameMenuPanel.SetActive(false);
-        pauseBtn.onClick.AddListener(OnPauseClicked);
         menuBtn.onClick.AddListener(OnMenuClicked);
         restartBtn.onClick.AddListener(OnRestartClicked);
         resumeBtn.onClick.AddListener(OnResumeClicked);
         shopBtn.onClick.AddListener(OnShopClicked);
         mainMenuBtn.onClick.AddListener(OnMainMenuClicked);
         aboutOKBtn.onClick.AddListener(OnAboutOKClicked);
-        pauseButtonText = pauseBtn.GetComponentInChildren<TextMeshProUGUI>();
         aboutBtn.onClick.AddListener(OnAboutClicked);
         exitBtn.onClick.AddListener(OnExitClicked);
         x2Text.enabled = false;
@@ -153,9 +151,9 @@ public class MenuView : MonoBehaviour
         _eventBus.OnCoinsAmountChangedEvent -= UpdateCoins;
         _eventBus.OnDiamondAmountChangedEvent -= UpdateDiamonds;
         _eventBus.OnProgressLoadedEvent -= OnProgressLoaded;
-        _eventBus.OnSpeedBoostCollectedEvent -= SpeedBoost;
-        _eventBus.OnInvincibilityCollectedEvent -= Invincibility;
-        _eventBus.OnMultiplyerX2CollectedEvent -= MultiplyerX2;
+        //_eventBus.OnSpeedBoostCollectedEvent -= SpeedBoost;
+        //_eventBus.OnInvincibilityCollectedEvent -= Invincibility;
+        //_eventBus.OnMultiplyerX2CollectedEvent -= MultiplyerX2;
     }
     private void ShowMenu()
     {
@@ -163,26 +161,26 @@ public class MenuView : MonoBehaviour
     }
 
 
-    private async void MultiplyerX2(float duration)
-    {
-        x2Text.enabled = true;
-        await UniTask.Delay(TimeSpan.FromSeconds(duration));
-        x2Text.enabled = false;
-    }
+    //private async void MultiplyerX2(float duration)
+    //{
+    //    x2Text.enabled = true;
+    //    await UniTask.Delay(TimeSpan.FromSeconds(duration));
+    //    x2Text.enabled = false;
+    //}
 
-    private async void Invincibility(float duration)
-    {
-        invincibilityText.enabled = true;
-        await UniTask.Delay(TimeSpan.FromSeconds(duration));
-        invincibilityText.enabled = false;
-    }
+    //private async void Invincibility(float duration)
+    //{
+    //    invincibilityText.enabled = true;
+    //    await UniTask.Delay(TimeSpan.FromSeconds(duration));
+    //    invincibilityText.enabled = false;
+    //}
 
-    private async void SpeedBoost(float duration)
-    {
-        speedBoostText.enabled = true;
-        await UniTask.Delay(TimeSpan.FromSeconds(duration));
-        speedBoostText.enabled = false;
-    }
+    //private async void SpeedBoost(float duration)
+    //{
+    //    speedBoostText.enabled = true;
+    //    await UniTask.Delay(TimeSpan.FromSeconds(duration));
+    //    speedBoostText.enabled = false;
+    //}
 
     private void OnProgressLoaded()
     {
@@ -303,12 +301,12 @@ public class MenuView : MonoBehaviour
 
     private void ResumeGame( )
     {
-        pauseButtonText.text = "ПАУЗА";
+        
     }
 
     private void PauseGame()
     {
-        pauseButtonText.text = "Возобновить";
+       
     }
 
     public void SetBoySkin() // todo перенести  в магазин

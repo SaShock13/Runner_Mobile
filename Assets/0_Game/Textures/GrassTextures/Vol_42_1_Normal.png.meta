@@ -1,5 +1,12 @@
 fileFormatVersion: 2
-guid: 0d063a2fd9c3b4f47b7d73a36cb71a0e
+guid: 9e91cd5bde426714d9f0ef165f143d7c
+AssetOrigin:
+  serializedVersion: 1
+  productId: 153153
+  packageName: Stylized Grass Texture
+  packageVersion: 1.0
+  assetPath: Assets/LowlyPoly/Stylized Grass Texture/Textures/Vol_42_1_Normal.png
+  uploadId: 510360
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -63,9 +70,9 @@ TextureImporter:
   compressionQualitySet: 0
   textureFormatSet: 0
   ignorePngGamma: 0
-  applyGammaDecoding: 0
+  applyGammaDecoding: 1
   swizzle: 50462976
-  cookieLightType: 0
+  cookieLightType: 1
   platformSettings:
   - serializedVersion: 4
     buildTarget: DefaultTexturePlatform

@@ -35,6 +35,11 @@ public class PlayerAnimatorManager
         _animator.SetTrigger("Jump");
     }
 
+     public void PlayHappy()
+    {
+        _animator.SetTrigger("Happy");
+    }
+
 
 
     public void UnSubscribeAll()

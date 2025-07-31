@@ -30,7 +30,6 @@ public class LevelGenerator : MonoBehaviour
     private float _nextFloorZPos = 0f;
     private float floorStep = 50f; // шаг между плитами пола
     private float bonusToWallMinDistance = 1f;
-    private Color mainColor;
     private FirebaseRemoteConfigManager _remoteConfig;
     private bool isStarted = false;
     private bool isNeedToGenerate = false;
@@ -54,7 +53,6 @@ public class LevelGenerator : MonoBehaviour
             _nextFloorZPos += floorStep;
         }
         DebugUtils.LogEditor($"mainColor {_remoteConfig.GetColorValue("MainColor")}");
-        mainColor = _remoteConfig.GetColorValue("MainColor");
         isStarted = true;
     }
 
@@ -139,7 +137,6 @@ public class LevelGenerator : MonoBehaviour
                 bool isLastChance = (lane == 2 && !hasPassableObstacle);
                 GameObject obstaclePrefab = GetRandomObstacle(isLastChance);
 
-                obstaclePrefab.GetComponentInChildren<Renderer>().sharedMaterial.color = mainColor;
                 InstantiateObstacle(obstaclePrefab, wall.transform, lane);
                 obstacleCount--;
 

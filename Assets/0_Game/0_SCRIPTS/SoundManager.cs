@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public enum Sounds
@@ -9,6 +10,11 @@ public enum Sounds
     hit,
     jump,
     bonus,
+    coin,
+    diamond,
+    speedBoost,
+    invincibility,
+    x2,
     death,
     slide
 }
@@ -22,10 +28,16 @@ public class SoundManager : MonoBehaviour
     [SerializeField] private AudioClip _menuMusic;
     [SerializeField] private AudioClip _wrongSound;
     [SerializeField] private AudioClip _hitSound;
+    [SerializeField] private AudioClip[] _obstacleColliosionSounds;
     [SerializeField] private AudioClip _jumpSound;
     [SerializeField] private AudioClip _slideSound;
     [SerializeField] private AudioClip _deathSound;
     [SerializeField] private AudioClip _bonusCollectSound;
+    [SerializeField] private AudioClip _coinCollectSound;
+    [SerializeField] private AudioClip _diamondCollectSound;
+    [SerializeField] private AudioClip _speedBoostCollectSound;
+    [SerializeField] private AudioClip _invincibilityCollectSound;
+    [SerializeField] private AudioClip _x2CollectSound;
     [SerializeField, Range (0,1)] private float sfxVolume;
     [SerializeField, Range(0, 1)] private float musicVolume;
 
@@ -40,6 +52,11 @@ public class SoundManager : MonoBehaviour
         _soundLibrary[Sounds.slide] = _slideSound;
         _soundLibrary[Sounds.death] = _deathSound;
         _soundLibrary[Sounds.bonus] = _bonusCollectSound;
+        _soundLibrary[Sounds.coin] = _coinCollectSound;
+        _soundLibrary[Sounds.diamond] = _diamondCollectSound;
+        _soundLibrary[Sounds.speedBoost] = _speedBoostCollectSound;
+        _soundLibrary[Sounds.invincibility] = _invincibilityCollectSound;
+        _soundLibrary[Sounds.x2] = _x2CollectSound;
         _soundLibrary[Sounds.wrong] = _wrongSound;
         _musicSource.loop = true;
         _musicSource.volume = 1;
@@ -58,8 +75,8 @@ public class SoundManager : MonoBehaviour
     {
         if (_soundLibrary.TryGetValue(sound, out AudioClip clip))
         {
-            _sfxSource.clip = clip;
-            _sfxSource.Play();
+            //_sfxSource.clip = clip;
+            _sfxSource.PlayOneShot(clip);
         }
     }
 
@@ -80,5 +97,11 @@ public class SoundManager : MonoBehaviour
     public void SetMusicVolume(float vol)
     {
         _musicSource.volume = vol;
+    }
+
+    internal void PlayObstacleCollision()
+    {
+        if (_obstacleColliosionSounds.Length == 0) return;
+        _sfxSource.PlayOneShot(_obstacleColliosionSounds[UnityEngine.Random.Range(0, _obstacleColliosionSounds.Length)]);
     }
 }

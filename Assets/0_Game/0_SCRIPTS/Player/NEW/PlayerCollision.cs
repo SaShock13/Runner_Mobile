@@ -39,7 +39,8 @@ public class PlayerCollision : MonoBehaviour
     private void ProcessObstacle(Collider other)
     {
         if(!_playerStats.IsAlive) return;
-        _playerStats.TakeDamage(3);
+        _playerStats.TakeDamage(1);
+        _soundManager.PlayObstacleCollision();
     }
 
     private void ProcessCollectible(Collider other)
@@ -72,36 +73,42 @@ public class PlayerCollision : MonoBehaviour
                 break;
         }
 
-        _soundManager.PlaySFX(Sounds.bonus);
+        
     }
 
     private void ProcessSpeedBoost(float duration)
     {
         _eventBus.PublishOnSpeedBoostCollectedEvent(duration);
+        _soundManager.PlaySFX(Sounds.speedBoost);
     }
 
     private void ProcessMultiplyerX2(float duration)
     {
         _eventBus.PublishOnMultiplyerX2CollectedEvent(duration);
+        _soundManager.PlaySFX(Sounds.x2);
     }
 
     private void ProcessInvincibility(float duration)
     {
         _eventBus.PublishOnInvincibilityCollectedEvent(duration);
+        _soundManager.PlaySFX(Sounds.invincibility);
     }
 
     private void ProcessDiamandBonus()
     {
         _eventBus.PublishOnDiamondCollectedEventt();
+        _soundManager.PlaySFX(Sounds.diamond);
     }
 
     private void ProcessCoinBonus()
     {
         _eventBus.PublishOnCoinCollectedEvent();
+        _soundManager.PlaySFX(Sounds.coin);
     }
 
     private void ProcessSimpleBonus()
     {
         _eventBus.PublishOnBonusCollectedEvent();
+        _soundManager.PlaySFX(Sounds.bonus);
     }
 }

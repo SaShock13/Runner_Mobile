@@ -8,7 +8,7 @@ using System.Threading;
 [System.Serializable]
 public class PlayerStats  : IDisposable
 {
-    public int maxhealth = 10;
+    public int maxhealth = 5;
     public int currenHealth;
     public float baseRunSpeed = 5f;
     private float currentRunSpeed = 5f;
@@ -59,7 +59,7 @@ public class PlayerStats  : IDisposable
         _eventBus.OnSpeedBoostCollectedEvent += SpeedBoostCollected;
         _eventBus.OnDistanceChangedEvent += DistanceChanged;
         currenHealth = maxhealth;
-
+        _eventBus.PublishOnPlayerDamaged(maxhealth, currenHealth);
         DebugUtils.LogEditor($"PlayerStats ctor {this}");
     }
 
@@ -187,8 +187,8 @@ public class PlayerStats  : IDisposable
             $"Звезд : {bonuses}\n" +
             $"Монет : {coins}\n" +
             $"Алмазов : {diamonds}\n" +
-            $"Пробежал {maxAchivedDistance} метров \n" +
-            $"Максимальная скорость {(int)maxAchivedSpeed} км/ч";
+            $"Пробежал {(int)maxAchivedDistance} метров \n" +
+            $"Максимальная \nскорость {(int)maxAchivedSpeed} км/ч";
     }
 
     private async void MultiplyerX2Collected(float duration)

@@ -6,6 +6,7 @@ TagManager:
   tags:
   - ship
   - asteroid
+  - FxTemporaire
   layers:
   - Default
   - TransparentFX

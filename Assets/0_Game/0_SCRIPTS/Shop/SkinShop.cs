@@ -25,6 +25,7 @@ public class SkinShop : MonoBehaviour
     [Inject] PlayerProgress _progress;
     [Inject] IDataService _dataService;
     [Inject] SoundManager _soundManager;
+    [Inject] PlayerAnimatorManager _animatorManager;
 
 
     private GameObject currentSkinInstance;
@@ -105,18 +106,22 @@ public class SkinShop : MonoBehaviour
         {
             DebugUtils.LogEditor($"skin.purchased {skin.purchased}");
             _player.SetSkinPrefab(skin.prefab);
+            _soundManager.PlaySFX(Sounds.diamond);
+            currentSkinInstance.GetComponent<Animator>().SetTrigger("Happy");
             DebugUtils.LogEditor($"Скин {skin.skinName} выбран!");
         }
         else
         {
             if(_playerWallet.IsCanBuy(skin.price))
             {
+
                 _playerWallet.SpendCurrencies(skin.price);
                 skin.purchased = true;
                 _progress.UnlockedSkins.Add(skin.skinName);
                 _dataService.SavePlayerProgress(_progress);
                 DebugUtils.LogEditor($"skin.purchased {skin.purchased}");
-
+                _soundManager.PlaySFX(Sounds.bonus);
+                currentSkinInstance.GetComponent<Animator>().SetTrigger("Happy");
                 actionButton.GetComponentInChildren<TMP_Text>().text = "Выбрать";
                 UpdateResourcesView();
                 //actionButton.interactable = true;
@@ -139,12 +144,13 @@ public class SkinShop : MonoBehaviour
     private void NotEnoughtMessage()
     {
         DebugUtils.LogEditor($"Not enough currencies {this}");
+        _soundManager.PlaySFX(Sounds.wrong);
         notEnoughtText.color = new Color(notEnoughtText.color.r, notEnoughtText.color.g, notEnoughtText.color.b, 0);
         notEnoughtText.transform.localScale = Vector3.zero;
         Sequence sequence = DOTween.Sequence().SetUpdate(true);
 
         // Одновременное появление и масштабирование
-        sequence.Join(notEnoughtText.DOFade(1f, 0.8f).OnComplete(() => _soundManager.PlaySFX(Sounds.wrong)));
+        sequence.Join(notEnoughtText.DOFade(1f, 0.8f));
         sequence.Join(notEnoughtText.transform.DOScale(1.1f, 0.5f).SetEase(Ease.OutBack));
 
         // Минимальная вибрация

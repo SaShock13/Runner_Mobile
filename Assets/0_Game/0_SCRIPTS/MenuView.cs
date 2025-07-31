@@ -21,10 +21,14 @@ public class MenuView : MonoBehaviour
     [SerializeField] private Button resumeBtn;
     [SerializeField] private Button shopBtn;
     [SerializeField] private Button mainMenuBtn;
+    [SerializeField] private Button aboutOKBtn;
+    [SerializeField] private Button aboutBtn;
+    [SerializeField] private Button exitBtn;
     [SerializeField] private GameObject deathPanel;
     [SerializeField] private GameObject startMenuPanel;
     [SerializeField] private GameObject shopPanel;
     [SerializeField] private GameObject gameMenuPanel;
+    [SerializeField] private GameObject aboutPanel;
     [SerializeField] TMP_Text livesText;
     [SerializeField] TMP_Text nameText;
     [SerializeField] TMP_Text speedText;
@@ -97,7 +101,10 @@ public class MenuView : MonoBehaviour
         resumeBtn.onClick.AddListener(OnResumeClicked);
         shopBtn.onClick.AddListener(OnShopClicked);
         mainMenuBtn.onClick.AddListener(OnMainMenuClicked);
+        aboutOKBtn.onClick.AddListener(OnAboutOKClicked);
         pauseButtonText = pauseBtn.GetComponentInChildren<TextMeshProUGUI>();
+        aboutBtn.onClick.AddListener(OnAboutClicked);
+        exitBtn.onClick.AddListener(OnExitClicked);
         x2Text.enabled = false;
         invincibilityText.enabled = false;
         speedBoostText.enabled = false;
@@ -112,6 +119,21 @@ public class MenuView : MonoBehaviour
             weatherVidget.SetActive(false);
         }
     }
+
+    private void OnAboutOKClicked()
+    {
+        aboutPanel.SetActive(false);
+    }
+    private void OnAboutClicked()
+    {
+        aboutPanel.SetActive(true);
+    }
+    private void OnExitClicked()
+    {
+       Application.Quit();
+    }
+
+
 
     private void DistanceUpdate(float newDistance)
     {

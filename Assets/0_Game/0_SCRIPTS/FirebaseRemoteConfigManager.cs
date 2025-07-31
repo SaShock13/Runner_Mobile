@@ -6,6 +6,7 @@ using Firebase.Extensions;
 using Firebase.RemoteConfig;
 using TMPro;
 using UnityEngine;
+using Zenject;
 
 public class FirebaseRemoteConfigManager : MonoBehaviour
 {
@@ -14,6 +15,7 @@ public class FirebaseRemoteConfigManager : MonoBehaviour
     private const string DEFAULT_TEST_VALUE = "default_value";
     private bool _isFirebaseInitialized = false;
     private FirebaseRemoteConfig _remoteConfig;
+    [Inject] private EventBus _eventBus;
 
     private void Start()
     {
@@ -91,6 +93,7 @@ public class FirebaseRemoteConfigManager : MonoBehaviour
                 _remoteConfig.ActivateAsync().ContinueWithOnMainThread(activateTask =>
                 {
                     DebugUtils.LogEditor("RemoteConfig activated");
+                    _eventBus.PublishOnRemotweConfigLoadedEvent();
                     DisplayConfigValues();
                 });
             }
@@ -99,6 +102,7 @@ public class FirebaseRemoteConfigManager : MonoBehaviour
 
     private void DisplayConfigValues()
     {
+        
         string testValue = _remoteConfig.GetValue(TEST_VARIABLE_KEY).StringValue;
         DebugUtils.LogEditor($"___________________________________");
         DebugUtils.LogEditor($"RemoteConfig TestVariable = {testValue}");
@@ -120,6 +124,13 @@ public class FirebaseRemoteConfigManager : MonoBehaviour
 
         var num = _remoteConfig.GetValue(variableKey).LongValue;
         return (int)num;
+    }
+
+     public string GetStringValue (string variableKey)
+    {
+
+        var text = _remoteConfig.GetValue(variableKey).StringValue;
+        return text;
     }
 
     //private void OnGUI()

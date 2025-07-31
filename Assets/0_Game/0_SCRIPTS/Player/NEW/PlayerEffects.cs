@@ -12,6 +12,7 @@ public class PlayerEffects : MonoBehaviour
     private EventBus _eventBus;
     private float durationOffset = 1f; // время до окнчания эффекта для сигнализирования , что скоро закончится
     private int blinkTimes = 5 ; // количество моргания для сигнлизирования окончания эффекта
+    private Coroutine _coroutine;
 
     [Inject]
 	public void Construct(EventBus eventBus)
@@ -21,13 +22,14 @@ public class PlayerEffects : MonoBehaviour
 
     private void Start()
     {
-        _eventBus.OnInvincibilityCollectedEvent += Invincibility;
+        _eventBus.OnInvincibilityEffectEvent += Invincibility;
     }
 
 
     private void Invincibility(float duration)
     {
-        StartCoroutine(InvincibilityCoroutine(duration));
+        if(_coroutine != null) StopCoroutine(_coroutine);
+        _coroutine = StartCoroutine(InvincibilityCoroutine(duration));
     }
 
 
@@ -61,12 +63,19 @@ public class PlayerEffects : MonoBehaviour
 
     public void Initialize()
     {
-        skinTransform = GetComponentInChildren<Animator>().transform;
+        skinTransform = transform;
+        if (invincibilityFX != null) Destroy(invincibilityFX.gameObject);
         invincibilityFX = Instantiate(invincibilityFXPrefab, skinTransform);
         InvincibiityFXRenderer = invincibilityFX.GetComponent<ParticleSystemRenderer>();
 
         Debug.Log($"skinTransform {skinTransform!= null}");
         Debug.Log($"invincibilityFX {invincibilityFX != null}");
         Debug.Log($"InvincibiityFXRenderer {InvincibiityFXRenderer != null}");
+    }
+
+    public void Reset()
+    {
+       StopAllCoroutines();
+        invincibilityFX.Stop();
     }
 }

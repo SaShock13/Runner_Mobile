@@ -165,6 +165,9 @@ public class PlayerStats  : IDisposable
         IsInvincible = false;
         IsSpeedBoosted = false;
         IsMultilier = false;
+        speedBoostRemainingDuration = 0f;
+        x2RemainingDuration = 0f;
+        invincibilityRemainingDuration = 0f;
         CurrentRunSpeed = baseRunSpeed;
         maxAchivedSpeed = 0;
         maxAchivedDistance = 0;
@@ -256,6 +259,7 @@ public class PlayerStats  : IDisposable
         //IsInvincible = false;
         DebugUtils.LogEditor($"InvincibilityCollected {this}");
         invincibilityRemainingDuration += duration;
+        _eventBus.PublishOnInvincibilityEffectEvent(invincibilityRemainingDuration);
 
         if (IsInvincible)
         {
@@ -264,7 +268,6 @@ public class PlayerStats  : IDisposable
         }
 
         IsInvincible = true;
-
         ctsInvincibility = new CancellationTokenSource();
 
         try

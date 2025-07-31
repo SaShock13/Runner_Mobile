@@ -16,7 +16,8 @@ public class LevelGenerator : MonoBehaviour
 
     [Header("Префабы")]
     [SerializeField] private GameObject[] _floorPrefabs;
-    [SerializeField] private GameObject[] _obstaclePrefabs;   // 2 - непроходимое
+    [SerializeField] private GameObject[] _passableObstaclePrefabs;   // проходимое
+    [SerializeField] private GameObject[] _impassableObstaclePrefabs;   // непроходимое
 
     [Header("Список лута с весами") ]
     public WeightedLoot[] weightedLootList; 
@@ -111,13 +112,13 @@ public class LevelGenerator : MonoBehaviour
     {
         if (forcePassable)
         {
-            return _obstaclePrefabs[Random.Range(0, 2)];
+            return _passableObstaclePrefabs[Random.Range(0, _passableObstaclePrefabs.Length - 1)];
         }
         else
         {
             float chance = Random.value;
-            if (chance < 0.5f) return _obstaclePrefabs[Random.Range(0, 2)];
-            else return _obstaclePrefabs[2]; // Непроходимое
+            if (chance < 0.5f) return _passableObstaclePrefabs[Random.Range(0, _passableObstaclePrefabs.Length)];
+            else return _impassableObstaclePrefabs[Random.Range(0, _impassableObstaclePrefabs.Length)]; // Непроходимое
         }
     }
 
@@ -126,7 +127,7 @@ public class LevelGenerator : MonoBehaviour
         GameObject wall = new GameObject("Wall_" + _nextWallZPos);
         wall.transform.position = new Vector3(0, 0, _nextWallZPos);
         _activeWalls.Add(wall);
-        int obstacleCount = Random.Range(3, 6); // количество препятствий в стене
+        int obstacleCount = Random.Range(2, 6); // количество препятствий в стене
         bool hasPassableObstacle = false;
 
         hasPassableObstacle = false;
@@ -142,7 +143,7 @@ public class LevelGenerator : MonoBehaviour
                 InstantiateObstacle(obstaclePrefab, wall.transform, lane);
                 obstacleCount--;
 
-                if (obstaclePrefab != _obstaclePrefabs[2]) // Если препятствие проходимое
+                if (obstaclePrefab != _passableObstaclePrefabs[2]) // Если препятствие проходимое
                     hasPassableObstacle = true;
             }
         }

@@ -8,6 +8,7 @@ public class EventBus
     public event Action<int,int> OnPlayerDamagedEvent;
     public event Action OnPlayerDeathEvent;
     public event Action OnProgressLoadedEvent;
+    public event Action OnRemoteConfigLoadedEvent;
     public event Action OnGameOverEvent;
     public event Action OnGameResetEvent;
     public event Action OnGameRestartRequestEvent;
@@ -23,6 +24,7 @@ public class EventBus
     public event Action<float> OnSpeedBoostCollectedEvent;
     public event Action<float> OnMultiplyerX2CollectedEvent;
     public event Action<float> OnInvincibilityCollectedEvent;
+    public event Action<float> OnInvincibilityEffectEvent;
     public event Action<int> OnBonusAmountChangedEvent;
     public event Action<int> OnCoinsAmountChangedEvent;
     public event Action<int> OnDiamondAmountChangedEvent;
@@ -137,6 +139,10 @@ public class EventBus
     {
         OnProgressLoadedEvent?.Invoke();
     }
+    public void PublishOnRemotweConfigLoadedEvent()
+    {
+        OnRemoteConfigLoadedEvent?.Invoke();
+    }
     public void PublishOnPauseEvent()
     {
         OnPauseEvent?.Invoke();
@@ -151,6 +157,8 @@ public class EventBus
         OnDistanceChangedEvent?.Invoke(distance);
     }
 
-
-
+    public void PublishOnInvincibilityEffectEvent(float invincibilityRemainingDuration)
+    {
+        OnInvincibilityEffectEvent.Invoke(invincibilityRemainingDuration);
+    }
 }

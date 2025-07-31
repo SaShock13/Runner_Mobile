@@ -5,6 +5,7 @@ public enum Sounds
 {
     gameMusic,
     menuMusic,
+    wrong,
     hit,
     jump,
     bonus,
@@ -19,6 +20,7 @@ public class SoundManager : MonoBehaviour
     private AudioSource _sfxSource;
     [SerializeField] private AudioClip gamedMusic;
     [SerializeField] private AudioClip _menuMusic;
+    [SerializeField] private AudioClip _wrongSound;
     [SerializeField] private AudioClip _hitSound;
     [SerializeField] private AudioClip _jumpSound;
     [SerializeField] private AudioClip _slideSound;
@@ -38,6 +40,7 @@ public class SoundManager : MonoBehaviour
         _soundLibrary[Sounds.slide] = _slideSound;
         _soundLibrary[Sounds.death] = _deathSound;
         _soundLibrary[Sounds.bonus] = _bonusCollectSound;
+        _soundLibrary[Sounds.wrong] = _wrongSound;
         _musicSource.loop = true;
         _musicSource.volume = 1;
         _musicSource. volume = musicVolume;

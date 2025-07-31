@@ -37,7 +37,9 @@ public class Player : MonoBehaviour
         var newPOs = transform.position;
         newPOs.z = -7.93f;
         transform.position = newPOs;
+
         _stats.ResetStats();
+        _playerFX.Reset();
         if (isInvincible) { _stats.IsInvincible = true; }
 
     }

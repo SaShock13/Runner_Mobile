@@ -13,6 +13,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using YandexMobileAds;
 using YandexMobileAds.Base;
+using Zenject;
 
 public class YandexMobileAdsInterstitialDemoScript : MonoBehaviour
 {
@@ -20,14 +21,22 @@ public class YandexMobileAdsInterstitialDemoScript : MonoBehaviour
 
     private InterstitialAdLoader interstitialAdLoader;
     private Interstitial interstitial;
+    [Inject] FirebaseRemoteConfigManager _remoteConfigManager;
+    [Inject] EventBus _eventBus;
 
     public void Awake()
     {
         this.interstitialAdLoader = new InterstitialAdLoader();
         this.interstitialAdLoader.OnAdLoaded += this.HandleAdLoaded;
         this.interstitialAdLoader.OnAdFailedToLoad += this.HandleAdFailedToLoad;
-        this.RequestInterstitial();
+        
+        _eventBus.OnRemoteConfigLoadedEvent += Init;
 
+    }
+
+    private void Init()
+    {
+        this.RequestInterstitial();
     }
 
     private void Update()
@@ -88,8 +97,10 @@ public class YandexMobileAdsInterstitialDemoScript : MonoBehaviour
         MobileAds.SetAgeRestrictedUser(true);
 
         // Replace demo Unit ID 'demo-interstitial-yandex' with actual Ad Unit ID
-        string adUnitId = "demo-interstitial-yandex";
+        //string adUnitId = "demo-interstitial-yandex";
+        string adUnitId = _remoteConfigManager.GetStringValue("YandexAD_Inter_ID");
 
+        Debug.Log($"adUnitId {adUnitId}");
         if (this.interstitial != null)
         {
             this.interstitial.Destroy();
